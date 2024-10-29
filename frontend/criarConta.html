@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>criar conta - TigerTech</title>
+</head>
+<body>
+    <section>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="jogos.html">Jogos</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            </ul>
+    </section>
+
+<section>
+    <h1>Crie sua conta no TigerTech</h1>
+    <p>Você quer jogar? Crie sua conta!</p>
+
+    <form action="" method="post">
+        <label for="nomeusuario">Nome de Usuário:</label>
+        <input type="text" id="nomeusuario" name="nomeusuario" required><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required><br>
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" id="senha" required><br>
+        <label for="confirmSenha">Confirme a senha:</label>
+        <input type="password" name="confirmSenha" id="confirmSenha" required><br>
+
+
+        <input type="checkbox" id="showPassword" onclick="togglePassword()">
+        <label for="showPassword">Mostrar senha</label><br>
+
+        <p>clique em criar conta para criar sua conta</p>
+        <button type="submit">Criar Conta</button>
+
+    </form>
+</section>
+</body>
+</html>
