@@ -16,8 +16,8 @@ jogo/
 ├── public/
 │   ├── index.html           # Página inicial com listagem de produtos
 │   ├── login.html           # Login do sistema
-│   ├── cadastro.html        # Cadastro de Usuario
-│   ├── carrinho.html        # Carrinho de compras
+│   ├── criarConta.html        # Cadastro de Usuario
+│   ├── admin.html        # Carrinho de compras
 |   ├── asset/
 |   ├──────── css/
 │   ├──────── style.css            # Estilos para a página
