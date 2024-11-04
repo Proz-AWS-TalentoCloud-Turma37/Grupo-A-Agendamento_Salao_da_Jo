@@ -1,4 +1,4 @@
-# Grupo-A_Plataforma_de_jogos
+# Plataforma de jogos
 
 ## Sistema desenvolvido por: 
 
