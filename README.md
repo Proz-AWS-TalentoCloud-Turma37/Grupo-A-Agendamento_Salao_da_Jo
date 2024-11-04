@@ -7,6 +7,25 @@
 
 > Trata-se de um site???
 
+## Estrutura Geral do Projeto
+
+### Estrutura de Arquivos
+
+````plaintext
+jogo/
+├── public/
+│   ├── index.html           # Página inicial com listagem de produtos
+│   ├── login.html           # Login do sistema
+│   ├── cadastro.html        # Cadastro de Usuario
+│   ├── carrinho.html        # Carrinho de compras
+|   ├── asset/
+|   ├──────── css/
+│   ├──────── style.css            # Estilos para a página
+|   ├──────── js/
+│   ├──────── script.js            # Estilos para a página
+|   └──────── img/
+````
+
 ### Requisitos Funcionais:
 
 >
