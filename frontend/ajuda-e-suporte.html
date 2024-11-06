@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajuda e Suporte - ArenaPlay</title>
+</head>
+<body>
+    <header>
+        <h1>Ajuda e Suporte</h1>
+        <p>Nossa equipe de suporte está aqui para ajudar você a aproveitar ao máximo a nossa plataforma de jogos. Nesta página, você encontrará respostas para as dúvidas mais frequentes, além de tutoriais detalhados e um formulário de contato para nos enviar suas perguntas e sugestões.</p>
+        <hr>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Perguntas Frequentes (FAQ)</h2>
+
+            <div class="faq-item">
+                <p class="faq-question">Como posso criar uma conta?</p>
+                <div class="faq-answer">
+                    <p>Para criar uma conta, clique no botão "Criar Conta" na página inicial e preencha os dados solicitados.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-question">Esqueci minha senha. O que faço?</p>
+                <div class="faq-answer">
+                    <p>Clique em "Esqueci minha senha" na tela de login e siga as instruções para redefinir sua senha.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-question">Como posso entrar em contato com o suporte técnico?</p>
+                <div class="faq-answer">
+                    <p>Você pode usar o formulário de contato nesta página para enviar uma mensagem ao suporte técnico.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tutoriais</h2>
+            <p>Confira nossos tutoriais em vídeo e texto para aprender a usar a plataforma:</p>
+            <ul>
+                <li><a href="#">Como iniciar uma partida multiplayer</a></li>
+                <li><a href="#">Configurações de perfil e privacidade</a></li>
+                <li><a href="#">Como ganhar pontos e subir de nível</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Fale com o Suporte</h2>
+            <p>Se não encontrou a resposta que procurava, envie uma mensagem para nossa equipe:</p>
+            
+            <form action="enviar_mensagem.php" method="post">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Plataforma de Jogos - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                answer.style.display = answer.style.display === 'none' || answer.style.display === '' ? 'block' : 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>
