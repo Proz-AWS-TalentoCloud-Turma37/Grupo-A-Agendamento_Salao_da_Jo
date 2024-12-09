@@ -44,22 +44,26 @@
                         <form id="register-form" action="" method="post">
                             <div class="mb-3">
                                 <label for="nomeusuario" class="form-label"><span class="oi oi-person"></span> Nome de Usuário:</label>
-                                <input type="text" id="nomeusuario" name="nomeusuario" class="form-control" placeholder="Digite seu nome de usuário" required>
+                                <input type="text" id="nomeusuario" name="nomeusuario" class="form-control" placeholder="Digite seu nome de usuário" data-min-length="3" data-required>
+                                <div class="error-validation template" style="display: none;"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="email" class="form-label"><span class="oi oi-envelope-closed"></span> Email:</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" data-email-validate data-required>
+                                <div class="error-validation template" style="display: none;"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="senha" class="form-label"><span class="oi oi-lock-locked"></span> Senha:</label>
-                                <input type="password" id="senha" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                                <input type="password" id="senha" name="senha" class="form-control" placeholder="Digite sua senha" data-min-length="6" data-required>
+                                <div class="error-validation template" style="display: none;"></div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="confirmSenha" class="form-label"><span class="oi oi-lock-locked"></span> Confirme a senha:</label>
-                                <input type="password" id="confirmSenha" name="confirmSenha" class="form-control" placeholder="Confirme sua senha" required>
+                                <input type="password" id="confirmSenha" name="confirmSenha" class="form-control" placeholder="Confirme sua senha" data-equal="senha" data-required>
+                                <div class="error-validation template" style="display: none;"></div>
                             </div>
 
                             <div class="form-check mb-3">
