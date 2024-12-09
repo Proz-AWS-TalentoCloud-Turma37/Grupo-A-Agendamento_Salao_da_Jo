@@ -8,21 +8,26 @@
     
     <!-- Link para o Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Link para o Open Iconic CSS -->
+    <link rel="stylesheet" href="open-iconic/font/css/open-iconic-bootstrap.min.css">
 </head>
 <body class="bg-light">
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">ArenaPlay</a>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span class="oi oi-globe me-2"></span> ArenaPlay
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="jogos.html">Jogos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html"><span class="oi oi-home"></span> Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jogos.html"><span class="oi oi-gamepad"></span> Jogos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contato.html"><span class="oi oi-envelope-closed"></span> Contato</a></li>
                 </ul>
             </div>
         </div>
@@ -31,19 +36,19 @@
     <!-- Conteúdo Principal -->
     <main class="container my-5">
         <header class="text-center mb-5">
-            <h1>Ajuda e Suporte</h1>
+            <h1><span class="oi oi-question-mark"></span> Ajuda e Suporte</h1>
             <p>Nossa equipe de suporte está aqui para ajudar você a aproveitar ao máximo a nossa plataforma de jogos. Nesta página, você encontrará respostas para as dúvidas mais frequentes, além de tutoriais detalhados e um formulário de contato para nos enviar suas perguntas e sugestões.</p>
             <hr>
         </header>
 
         <!-- Seção FAQ -->
         <section class="mb-5">
-            <h2>Perguntas Frequentes (FAQ)</h2>
+            <h2><span class="oi oi-list-rich"></span> Perguntas Frequentes (FAQ)</h2>
             <div class="accordion" id="faqAccordion">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="faq1">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                            Como posso criar uma conta?
+                            <span class="oi oi-person"></span> Como posso criar uma conta?
                         </button>
                     </h2>
                     <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
@@ -55,7 +60,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="faq2">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                            Esqueci minha senha. O que faço?
+                            <span class="oi oi-lock-locked"></span> Esqueci minha senha. O que faço?
                         </button>
                     </h2>
                     <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
@@ -67,7 +72,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="faq3">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                            Como posso entrar em contato com o suporte técnico?
+                            <span class="oi oi-envelope-closed"></span> Como posso entrar em contato com o suporte técnico?
                         </button>
                     </h2>
                     <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
@@ -81,34 +86,34 @@
 
         <!-- Seção Tutoriais -->
         <section class="mb-5">
-            <h2>Tutoriais</h2>
+            <h2><span class="oi oi-book"></span> Tutoriais</h2>
             <p>Confira nossos tutoriais em vídeo e texto para aprender a usar a plataforma:</p>
             <ul class="list-group">
-                <li class="list-group-item"><a href="#">Como iniciar uma partida multiplayer</a></li>
-                <li class="list-group-item"><a href="#">Configurações de perfil e privacidade</a></li>
-                <li class="list-group-item"><a href="#">Como ganhar pontos e subir de nível</a></li>
+                <li class="list-group-item"><span class="oi oi-play-circle"></span> <a href="#">Como iniciar uma partida multiplayer</a></li>
+                <li class="list-group-item"><span class="oi oi-cog"></span> <a href="#">Configurações de perfil e privacidade</a></li>
+                <li class="list-group-item"><span class="oi oi-graph"></span> <a href="#">Como ganhar pontos e subir de nível</a></li>
             </ul>
         </section>
 
         <!-- Seção de Contato -->
         <section class="mb-5">
-            <h2>Fale com o Suporte</h2>
+            <h2><span class="oi oi-comment-square"></span> Fale com o Suporte</h2>
             <p>Se não encontrou a resposta que procurava, envie uma mensagem para nossa equipe:</p>
 
             <form action="enviar_mensagem.php" method="post" class="p-4 bg-white shadow-sm rounded">
                 <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
+                    <label for="nome" class="form-label"><span class="oi oi-person"></span> Nome</label>
                     <input type="text" id="nome" name="nome" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label"><span class="oi oi-envelope-closed"></span> Email</label>
                     <input type="email" id="email" name="email" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="mensagem" class="form-label">Mensagem</label>
+                    <label for="mensagem" class="form-label"><span class="oi oi-comment-square"></span> Mensagem</label>
                     <textarea id="mensagem" name="mensagem" rows="4" class="form-control" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+                <button type="submit" class="btn btn-primary w-100"><span class="oi oi-check"></span> Enviar</button>
             </form>
         </section>
     </main>
