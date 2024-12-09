@@ -81,6 +81,12 @@ class Validator {
     }
 
     printMessage(input, message) {
+        //Reproduzir som de erro
+        const errorSound = document.getElementById('errorSound');
+        if (errorSound) {
+            errorSound.currentTime = 0;
+            errorSound.play().catch(err => console.error('the file failed:', err));
+        }
         let errorValidation = input.parentNode.querySelector('.error-validation');
         errorValidation.style.display = 'block';
         errorValidation.innerHTML = message;
