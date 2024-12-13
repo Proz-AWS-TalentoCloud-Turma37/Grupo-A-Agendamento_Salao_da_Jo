@@ -1,4 +1,4 @@
-# Site com Sistema de Agendamento de Salão de Beleza
+# Site com Sistema de Agendamento de Salão Essencia (salão da Jo)
 
 ## Sistema desenvolvido por:
 - **Igor Alves Palmeira**
@@ -9,8 +9,7 @@
 
 ### SASJ Sistema de Agendamento Salão da Jó
 
-Trata-se de um projeto real da inclusão digital do Salão Essencia (salão da Jo) que fica na cidade de 
-Esse sistema de agendamento do Salão da Jó é uma aplicação voltada para gerenciar horários, serviços e clientes de forma eficiente. Seu objetivo principal é oferecer uma interface intuitiva para que os clientes possam agendar serviços e para que o salão consiga organizar os atendimentos, otimizando o fluxo de trabalho.
+Trata-se de um projeto real da inclusão digital do Salão Essencia (salão da Jo). Esse sistema de agendamento do Salão da Jó é uma aplicação voltada para gerenciar horários, serviços e clientes de forma eficiente. Seu objetivo principal é oferecer uma interface intuitiva para que os clientes possam agendar serviços e para que o salão consiga organizar os atendimentos, otimizando o fluxo de trabalho.
 
 ## Estrutura Geral do Projeto
 ### Estrutura de Arquivos
