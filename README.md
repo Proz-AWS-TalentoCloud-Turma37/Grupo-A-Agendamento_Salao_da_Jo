@@ -5,11 +5,12 @@
 - **Flavio José dos Santos Joaquim**
 - **Luan Alves Lisboa**
 - **Bruna Fernanda D’Amaral**
-- **José Vitor Caetano de Albuquerque**
+- **Filipe Freitas de Souza**
 
-### ArenaPlay
+### SASJ Sistema de Agendamento Salão da Jó
 
-> Trata-se de uma plataforma de jogos online onde os usuários podem jogar, interagir em tempo real e personalizar seus perfis. Administradores têm controle total sobre usuários e jogos, incluindo funcionalidades de gerenciamento e moderação.
+Trata-se de um projeto real da inclusão digital do Salão Essencia (salão da Jo) que fica na cidade de 
+Esse sistema de agendamento do Salão da Jó é uma aplicação voltada para gerenciar horários, serviços e clientes de forma eficiente. Seu objetivo principal é oferecer uma interface intuitiva para que os clientes possam agendar serviços e para que o salão consiga organizar os atendimentos, otimizando o fluxo de trabalho.
 
 ## Estrutura Geral do Projeto
 ### Estrutura de Arquivos
@@ -30,21 +31,37 @@ arenaplay/
 └── README.md
 ```
 
+Funcionalidades Principais
+1. Cadastro de Usuários
+- Clientes: Nome, telefone, e-mail e histórico de agendamentos.
+- Profissionais: Nome, especialização, horários disponíveis.
+- Administrador: Acesso total ao sistema para gerenciamento de todos os recursos.
+2. Serviços Oferecidos
+- Cadastro e edição dos serviços disponíveis, como cortes de cabelo, coloração, manicure, pedicure e tratamentos capilares.
+- Especificação de preços e duração de cada serviço.
+3. Agendamento
+- Para Clientes:
+  - Interface amigável para selecionar data, horário, profissional e serviço.
+  - Visualização de horários disponíveis em tempo real.
+- Para Administradores:
+  - Painel de controle para gerenciar agendamentos, alocar profissionais e visualizar a agenda completa do salão.
+4. Notificações
+- Lembretes automáticos via e-mail, SMS ou WhatsApp para confirmar ou lembrar os clientes do agendamento.
+- Notificações de cancelamento ou reagendamento.
+5. Relatórios e Análise
+- Histórico de atendimentos.
+- Relatórios de faturamento e desempenho dos profissionais.
+- Gráficos para análise de serviços mais populares.
+6. Pagamentos
+- Integração com gateways de pagamento para pagamento online no momento do agendamento (opcional).
+- Registro de pagamentos realizados no salão.
+
+
 ## Requisitos Funcionais:
-1. **Autenticação de Usuário** - Login e logout de usuários com verificação de credenciais; recuperação de senha e criação de conta com validação.
-2. **Perfil do Usuário** - Usuários podem editar e visualizar seu perfil.
-3. **Sistema de Jogos** - Seleção de jogos e opção de partidas multiplayer em tempo real, com informações sobre regras e instruções de cada jogo.
-4. **Sistema de Chat** - Chat em tempo real durante os jogos.
-5. **Administração Completa (CRUD) de Usuários e Jogos** - Administradores podem realizar operações de CRUD completas em usuários e jogos.
-6. **Notificações** - Sistema de notificações para atualizações de jogos, novas mensagens e alertas, como avisos de banimento ou convites para partidas.
-7. **Ranking e Pontuação** - Sistema de níveis, pontuação e classificações, visível para todos os usuários conforme desempenho nos jogos.
+
 
 ## Requisitos Não Funcionais:
-1. **Desempenho e Baixa Latência** - Tempo de resposta rápido para jogos e chat.
-2. **Segurança** - Criptografia de dados sensíveis, como senhas e informações pessoais.
-3. **Conformidade com Diretrizes de Acessibilidade (WCAG)** - Interface acessível que segue as diretrizes da WCAG.
-4. **Usabilidade e Design Responsivo** - Interface amigável e intuitiva, adaptável a dispositivos móveis, tablets e desktops.
-5. **Conformidade com LGPD** - Opções de consentimento para uso de dados e cookies, com política de privacidade clara e acessível.
+
 
 ### Telas do Sistema:
 *Link para protótipos e telas do sistema (em branco)*
