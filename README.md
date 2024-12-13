@@ -1,4 +1,4 @@
-# Plataforma de Jogos Online - ArenaPlay
+# Site com Sistema de Agendamento de Salão de Beleza
 
 ## Sistema desenvolvido por:
 - **Igor Alves Palmeira**
