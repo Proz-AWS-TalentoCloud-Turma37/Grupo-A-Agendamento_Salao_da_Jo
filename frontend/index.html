@@ -2,85 +2,76 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArenaPlay</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Open Iconic CSS -->
-    <link rel="stylesheet" href="open-iconic/font/css/open-iconic-bootstrap.min.css">
+    <title>Salão Essência - Carinho e Amor por você.</title>
 </head>
 <body>
-    <a href="#menu-principal" class="visually-hidden-focusable">Pular para o menu principal</a>
-
-    <!-- Header e Menu -->
-    <header class="bg-dark py-2 d-flex align-items-center">
-        <a href="index.html" class="ms-3 d-flex align-items-center">
-            <img src="./img/logo.jpg" alt="Logotipo esportivo da ArenaPlay" class="img-fluid" style="max-height: 50px;">
-        </a>
-        <nav id="menu-principal" aria-label="Menu Principal" class="nav flex-grow-1 justify-content-center">
-            <a href="index.html" class="nav-link text-light">
-                <span class="oi oi-home"></span> Início
-            </a>
-            <a href="jogos.html" class="nav-link text-light">
-                <span class="oi oi-gamepad"></span> Jogos
-            </a>
-            <a href="suporte.html" class="nav-link text-light">
-                <span class="oi oi-question-mark"></span> Ajuda e Suporte
-            </a>
-        </nav>
+    <header>
+        <h1>Salão Essência</h1>
+        <p>Sua felicidade e completa satisfação sempre será nosso objetivo.</p>
     </header>
 
-    <!-- Quick Links -->
-    <div class="quick-links p-3 bg-light text-center">
-        <img src="./img/logo.jpg" alt="Logotipo esportivo da ArenaPlay" class="img-fluid my-2" style="max-width: 150px;">
-        
-        <details class="mt-2">
-            <summary>
-                <span class="oi oi-account-login"></span> Entrar / Criar Conta
-            </summary>
-            <a href="login.html" class="d-block text-decoration-none">
-                <span class="oi oi-account-login"></span> Entrar
-            </a>
-            <a href="cadastrar.html" class="d-block text-decoration-none">
-                <span class="oi oi-plus"></span> Criar Conta
-            </a>
+    <section>
+        <div id="carousel">
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+        <div>
+            <button>◀ Previous</button>
+            <button>Next ⏩</button>
+        </div>
+        </div>
+
+    </section>
+
+    <section>
+        <h2>Entre e venha fazer parte desta linda família!</h2>
+        <details>
+            <summary>Login / Criar Conta</summary>
+            <form>
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+                <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()"> Mostrar senha<br>
+                <input type="checkbox" id="show-password"> Mostrar senha<br>
+                <button type="submit">Entrar</button>
+                <p>Não tem conta? <a href="#">O que está esperando! Crie uma agora!</a></p>
+            </form>
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required><br>
+                <button type="submit">Entrar</button>
+            </form>
         </details>
-    </div>
+    </section>
 
-    <!-- Conteúdo Principal -->
-    <main class="container text-center my-5">
-        <h1 class="display-4">ArenaPlay! <strong class="text-primary">o mundo dos Games</strong></h1>
-        <p class="lead">Bem-vindo à sala de jogos! Aqui a diversão é garantida.</p>
-    </main>
+    <section>
+        <p>Deixe-nos fazer o seu dia mais feliz! Nosso objetivo é proporcionar a você momentos de cuidado, relaxamento e beleza, com profissionais dedicados e serviços de excelência. Venha conhecer o Salão Essência e descubra o verdadeiro significado de se sentir bem consigo mesmo!</p>
+    </section>
 
-    <!-- Rodapé -->
-    <footer class="bg-dark text-white text-center py-4">
-        <section class="mb-3">
-            <h2 class="h4">Sobre Nós</h2>
-            <p class="small">A ArenaPlay é uma plataforma dedicada aos apaixonados por jogos, oferecendo uma experiência de
-                entretenimento de alta qualidade. Nossa missão é conectar jogadores e proporcionar diversão para todas
-                as idades.</p>
-        </section>
+    <section>
+        <h2>Nossos Serviços</h2>
+        <details>
+            <summary>Serviços Disponíveis</summary>
+            <ul>
+                <li>Cabeleireira - <a href="#">Agendar</a></li>
+                <li>Manicure & Pedicure - <a href="#">Agendar</a></li>
+                <li>Depilação - <a href="#">Agendar</a></li>
+            </ul>
+        </details>
+    </section>
 
-        <section class="mb-3">
-            <h2 class="h4">Nos Siga</h2>
-            <a href="https://facebook.com" class="text-light me-2">
-                <span class="oi oi-social-facebook"></span>
-            </a>
-            <a href="https://twitter.com" class="text-light me-2">
-                <span class="oi oi-social-twitter"></span>
-            </a>
-            <a href="https://instagram.com" class="text-light">
-                <span class="oi oi-camera-slr"></span>
-            </a>
-        </section>
-
-        <p class="small">&copy; 2024 ArenaPlay. Todos os direitos reservados.</p>
+    <footer>
+        <h3>Nossas Redes Sociais</h3>
+        <p>Siga-nos nas redes sociais:</p>
+        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
