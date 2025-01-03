@@ -1,0 +1,51 @@
+#comentarios {
+    background: url('../img/comentarios.webp') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
+#comentarios h2 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+.sombra-simples {
+    text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#midia {
+    background: url('../img/comentarios.webp') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
+
+#sobre {
+    background: url('../img/01.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
+#sobreMeio{
+    background-color: rgb(228, 227, 227);
+}
+
+#servico {
+    background: url('../img/makes.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    height: 200px;
+}
+#faq {
+    background: url('../img/FAQ.webp') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    height: 200px;
+}
+#faqMeio{
+    background-color: rgb(228, 227, 227) !important;
+}
+.user_servicos{
+    width: 200px;
+}
+
+
+
