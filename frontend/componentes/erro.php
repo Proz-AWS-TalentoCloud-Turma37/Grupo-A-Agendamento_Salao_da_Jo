@@ -18,7 +18,7 @@
     <?php unset($_SESSION['mensagem_sucesso']); ?>
 <?php endif; ?>
 <script>
-    // Ocultar a mensagem de sucesso 2s e de erro após 4 segundos
+
     document.addEventListener('DOMContentLoaded', function () {
         const mensagemSucesso = document.getElementById('mensagem-sucesso');
         const mensagemErro = document.getElementById('mensagem-erro');
