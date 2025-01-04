@@ -18,7 +18,7 @@
     <?php unset($_SESSION['mensagem_sucesso']); ?>
 <?php endif; ?>
 <script>
-    // Ocultar a mensagem de sucesso 2s e de erro após 4 segundos
+
     document.addEventListener('DOMContentLoaded', function () {
         const mensagemSucesso = document.getElementById('mensagem-sucesso');
         const mensagemErro = document.getElementById('mensagem-erro');
@@ -26,7 +26,7 @@
             setTimeout(() => {
                 mensagemSucesso.style.transition = 'opacity 0.5s';
                 mensagemSucesso.style.opacity = '0';
-                setTimeout(() => mensagemSucesso.remove(), 500); // Remove completamente o elemento
+                setTimeout(() => mensagemSucesso.remove(), 500); 
             }, 2000); // 2000 ms = 2 segundos
         } else if (mensagemErro) {
             setTimeout(() => {
