@@ -26,7 +26,7 @@
             setTimeout(() => {
                 mensagemSucesso.style.transition = 'opacity 0.5s';
                 mensagemSucesso.style.opacity = '0';
-                setTimeout(() => mensagemSucesso.remove(), 500); // Remove completamente o elemento
+                setTimeout(() => mensagemSucesso.remove(), 500); 
             }, 2000); // 2000 ms = 2 segundos
         } else if (mensagemErro) {
             setTimeout(() => {
