@@ -47,5 +47,28 @@
     width: 200px;
 }
 
+.custom-navbar {
+    background-color: #3E760B !important;
+}
+
+.btn {
+    background-color: #3E760B !important; /* Nova cor de fundo */
+    border-color: #3E760B !important;     /* Nova cor da borda */
+    color: white !important;              /* Cor do texto */
+}
+
+/* Botão de Limpar (vermelho padrão do Bootstrap) */
+.btn-danger {
+    background-color: #dc3545 !important; /* Vermelho padrão Bootstrap */
+    border-color: #dc3545 !important;
+    color: white !important;
+}
+
+/* Botão de Cadastrar (azul padrão do Bootstrap) */
+.btn-success {
+    background-color: #007bff !important; /* Azul padrão Bootstrap */
+    border-color: #007bff !important;
+    color: white !important;
+}
 
 
