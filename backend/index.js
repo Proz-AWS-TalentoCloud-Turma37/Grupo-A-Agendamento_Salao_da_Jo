@@ -1,42 +1,28 @@
-import env from "./src/environment.js";
 import express from "express";
-import { PrismaClient } from "@prisma/client"; // Importa o Prisma Client
+import env from "./src/environment.js";
+import usuarioRoutes from "./src/routes/usuarioRoutes.js";
+import horarioRoutes from "./src/routes/horarioRoutes.js";
+import agendamentoRoutes from "./src/routes/agendamentoRoutes.js";
 
 const app = express();
-const prisma = new PrismaClient(); // Instância do Prisma Client
+const PORT = env.PORT || 3000; // Usa a porta do arquivo .env ou 3000 como padrão
 
-// Configurações básicas do Express
-app.use(express.json({ limit: "2mb" }));
+// Configuração do Express
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Testar conexão com o banco de dados
-async function testDatabaseConnection() {
-    try {
-        console.log("Testando conexão com o banco de dados...");
-        await prisma.$connect(); // Conecta ao banco
-        console.log("Conexão com o banco de dados bem-sucedida!");
-    } catch (error) {
-        console.error("Erro ao conectar ao banco de dados:", error.message);
-    } finally {
-        await prisma.$disconnect(); // Fecha a conexão após o teste
-    }
-}
+// Rotas
+app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/horarios", horarioRoutes);
+app.use("/api/agendamentos", agendamentoRoutes);
 
-// Chamar a função de teste ao iniciar o servidor
-testDatabaseConnection();
-
-// Aplicar todas as rotas (ainda não implementadas)
-app.use("/", (req, res) => {
-    res.send("API funcionando, mas rotas ainda não configuradas.");
-});
-
-// Middleware de tratamento de erro
+// Middleware de erro
 app.use((err, req, res, next) => {
     console.error("Erro no servidor:", err.message);
     res.status(500).send("Erro no servidor");
 });
 
-// Iniciar o servidor
-app.listen(env.PORT, () => {
-    console.log(`Servidor ativo na porta ${env.PORT}`);
+// Ativar o servidor e exibir mensagem no console
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
