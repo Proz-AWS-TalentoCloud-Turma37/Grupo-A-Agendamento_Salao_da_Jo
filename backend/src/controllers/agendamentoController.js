@@ -42,10 +42,11 @@ class AgendamentoController {
     }
 
     // Listar todos os agendamentos
+
     async listar(req, res) {
         try {
             const agendamentos = await prisma.agendamento.findMany({
-                include: { horario: true }, // Inclui informações do horário no resultado
+                include: { horario: true },
             });
 
             return res.status(200).json(agendamentos);
@@ -63,6 +64,7 @@ class AgendamentoController {
             const agendamento = await prisma.agendamento.findUnique({
                 where: { id: parseInt(id) },
                 include: { horario: true }, // Inclui informações do horário no resultado
+ // Inclui informações do horário no resultado
             });
 
             if (!agendamento) {

@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 class HorarioController {
     // Criar um novo horário
     async criar(req, res) {
-        // Validação de dados com express-validator
+        // Validando dados com express-validator
         await body("dataHora").isISO8601().withMessage("Data e hora inválidas").toDate().run(req);
         await body("cabeleireiraId").isInt().withMessage("ID da cabeleireira deve ser um número inteiro").run(req);
 
@@ -23,7 +23,7 @@ class HorarioController {
                 data: {
                     dataHora,
                     disponivel: true,
-                    cabelereiraId: parseInt(cabeleireiraId), // Certifique-se de que este campo está correto no schema
+                    cabelereiraId: parseInt(cabeleireiraId),
                 },
             });
 
@@ -39,7 +39,7 @@ class HorarioController {
         try {
             const horarios = await prisma.horario.findMany({
                 where: { disponivel: true },
-                include: { cabelereira: true }, // Inclui informações da cabeleireira
+                include: { cabelereira: true },
             });
 
             return res.status(200).json(horarios);
@@ -64,7 +64,7 @@ class HorarioController {
         try {
             const horario = await prisma.horario.findUnique({
                 where: { id: parseInt(id) },
-                include: { cabelereira: true }, // Inclui informações da cabeleireira associada
+                include: { cabelereira: true },
             });
 
             if (!horario) {
@@ -80,7 +80,7 @@ class HorarioController {
 
     // Atualizar um horário
     async atualizar(req, res) {
-        // Validação de dados com express-validator
+
         await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
         await body("disponivel").isBoolean().withMessage("Disponível deve ser um valor booleano").run(req);
 

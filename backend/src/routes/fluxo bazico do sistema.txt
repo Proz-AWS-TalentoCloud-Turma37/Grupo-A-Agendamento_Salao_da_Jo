@@ -1,0 +1,10 @@
+Fluxo Básico de Uso
+Cadastro de usuários:
+Cabeleireiras e clientes se cadastram.
+Administrador pode gerenciar tudo no sistema.
+Cabeleireira cadastra horários disponíveis:
+Clientes visualizam horários disponíveis:
+Agendamento é feito:
+Um registro é criado na tabela Agendamento.
+Cancelamento de agendamento (opcional):
+Cliente ou administrador pode cancelar o agendamento, liberando o horário.
