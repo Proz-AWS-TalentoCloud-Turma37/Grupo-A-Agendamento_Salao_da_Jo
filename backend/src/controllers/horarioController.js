@@ -8,14 +8,14 @@ class HorarioController {
     async criar(req, res) {
         // Validando dados com express-validator
         await body("dataHora").isISO8601().withMessage("Data e hora inválidas").toDate().run(req);
-        await body("cabeleireiraId").isInt().withMessage("ID da cabeleireira deve ser um número inteiro").run(req);
+        await body("profissionalId").isInt().withMessage("ID do profissional deve ser um número inteiro").run(req);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { dataHora, cabeleireiraId } = req.body;
+        const { dataHora, profissionalId } = req.body;
 
         try {
             // Criar o horário
@@ -23,7 +23,7 @@ class HorarioController {
                 data: {
                     dataHora,
                     disponivel: true,
-                    cabelereiraId: parseInt(cabeleireiraId),
+                    profissionalId: parseInt(profissionalId),
                 },
             });
 
@@ -39,7 +39,7 @@ class HorarioController {
         try {
             const horarios = await prisma.horario.findMany({
                 where: { disponivel: true },
-                include: { cabelereira: true },
+                include: { profissional: true }, // Inclui informações do profissional
             });
 
             return res.status(200).json(horarios);
@@ -64,7 +64,7 @@ class HorarioController {
         try {
             const horario = await prisma.horario.findUnique({
                 where: { id: parseInt(id) },
-                include: { cabelereira: true },
+                include: { profissional: true }, // Inclui informações do profissional
             });
 
             if (!horario) {
@@ -80,7 +80,7 @@ class HorarioController {
 
     // Atualizar um horário
     async atualizar(req, res) {
-
+        // Validação de dados com express-validator
         await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
         await body("disponivel").isBoolean().withMessage("Disponível deve ser um valor booleano").run(req);
 

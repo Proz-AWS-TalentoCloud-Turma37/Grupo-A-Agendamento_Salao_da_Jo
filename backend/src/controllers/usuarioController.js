@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { body, param, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
@@ -6,13 +7,23 @@ const prisma = new PrismaClient();
 class UsuarioController {
     // Criar um novo usuário
     async criar(req, res) {
+        // Validação de dados com express-validator
+        await body("nome").notEmpty().withMessage("Nome é obrigatório").run(req);
+        await body("email").isEmail().withMessage("Email inválido").run(req);
+        await body("senha").isLength({ min: 6 }).withMessage("Senha deve ter pelo menos 6 caracteres").run(req);
+        await body("tipo")
+            .isIn(["CLIENTE", "PROFISSIONAL", "ADMINISTRADOR"])
+            .withMessage("Tipo de usuário inválido")
+            .run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { nome, email, senha, celular, tipo } = req.body;
 
         try {
-            if (!nome || !email || !senha || !tipo) {
-                return res.status(400).send("Nome, email, senha e tipo são obrigatórios");
-            }
-
             // Verificar se o e-mail já está em uso
             const usuarioExistente = await prisma.usuario.findUnique({ where: { email } });
             if (usuarioExistente) {
@@ -48,7 +59,16 @@ class UsuarioController {
     // Listar todos os usuários
     async listar(req, res) {
         try {
-            const usuarios = await prisma.usuario.findMany();
+            const usuarios = await prisma.usuario.findMany({
+                select: {
+                    id: true,
+                    nome: true,
+                    email: true,
+                    celular: true,
+                    tipo: true,
+                    createdAt: true,
+                },
+            });
             return res.status(200).json(usuarios);
         } catch (error) {
             console.error(`Erro ao listar usuários: ${error.message}`);
@@ -58,10 +78,28 @@ class UsuarioController {
 
     // Buscar um usuário por ID
     async buscarPorId(req, res) {
+        // Validação de ID
+        await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { id } = req.params;
 
         try {
-            const usuario = await prisma.usuario.findUnique({ where: { id: parseInt(id) } });
+            const usuario = await prisma.usuario.findUnique({
+                where: { id: parseInt(id) },
+                select: {
+                    id: true,
+                    nome: true,
+                    email: true,
+                    celular: true,
+                    tipo: true,
+                    createdAt: true,
+                },
+            });
 
             if (!usuario) {
                 return res.status(404).send("Usuário não encontrado");
@@ -76,6 +114,16 @@ class UsuarioController {
 
     // Atualizar informações de um usuário
     async atualizar(req, res) {
+        // Validação de dados
+        await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
+        await body("email").optional().isEmail().withMessage("Email inválido").run(req);
+        await body("senha").optional().isLength({ min: 6 }).withMessage("Senha deve ter pelo menos 6 caracteres").run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { id } = req.params;
         const { nome, email, senha, celular, tipo } = req.body;
 
@@ -105,6 +153,14 @@ class UsuarioController {
 
     // Deletar um usuário
     async deletar(req, res) {
+        // Validação de ID
+        await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { id } = req.params;
 
         try {

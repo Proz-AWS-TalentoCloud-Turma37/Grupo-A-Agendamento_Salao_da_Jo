@@ -1,19 +1,27 @@
 import { PrismaClient } from "@prisma/client";
+import { body, param, validationResult } from "express-validator";
 
 const prisma = new PrismaClient();
 
 class AgendamentoController {
     // Criar um agendamento
     async criar(req, res) {
+        // Validar dados com express-validator
+        await body("horarioId").isInt().withMessage("ID do horário deve ser um número inteiro").run(req);
+        await body("clienteId").isInt().withMessage("ID do cliente deve ser um número inteiro").run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { horarioId, clienteId, observacao } = req.body;
 
         try {
-            if (!horarioId || !clienteId) {
-                return res.status(400).send("ID do horário e ID do cliente são obrigatórios");
-            }
-
             // Verificar se o horário está disponível
-            const horario = await prisma.horario.findUnique({ where: { id: parseInt(horarioId) } });
+            const horario = await prisma.horario.findUnique({
+                where: { id: parseInt(horarioId) },
+            });
 
             if (!horario || !horario.disponivel) {
                 return res.status(400).send("Horário não está disponível");
@@ -42,11 +50,13 @@ class AgendamentoController {
     }
 
     // Listar todos os agendamentos
-
     async listar(req, res) {
         try {
             const agendamentos = await prisma.agendamento.findMany({
-                include: { horario: true },
+                include: {
+                    horario: { include: { profissional: true } }, // Inclui informações do profissional e horário
+                    cliente: true, // Inclui informações do cliente
+                },
             });
 
             return res.status(200).json(agendamentos);
@@ -58,13 +68,23 @@ class AgendamentoController {
 
     // Buscar agendamento por ID
     async buscarPorId(req, res) {
+        // Validação de ID com express-validator
+        await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { id } = req.params;
 
         try {
             const agendamento = await prisma.agendamento.findUnique({
                 where: { id: parseInt(id) },
-                include: { horario: true }, // Inclui informações do horário no resultado
- // Inclui informações do horário no resultado
+                include: {
+                    horario: { include: { profissional: true } }, // Inclui informações do profissional
+                    cliente: true, // Inclui informações do cliente
+                },
             });
 
             if (!agendamento) {
@@ -80,6 +100,15 @@ class AgendamentoController {
 
     // Atualizar um agendamento
     async atualizar(req, res) {
+        // Validação de dados com express-validator
+        await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
+        await body("observacao").optional().isString().withMessage("Observação deve ser um texto").run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { id } = req.params;
         const { observacao } = req.body;
 
@@ -98,6 +127,14 @@ class AgendamentoController {
 
     // Deletar (cancelar) um agendamento
     async deletar(req, res) {
+        // Validação de ID com express-validator
+        await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { id } = req.params;
 
         try {
