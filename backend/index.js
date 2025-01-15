@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import env from "./src/environment.js";
 import usuarioRoutes from "./src/routes/usuarioRoutes.js";
@@ -9,6 +10,8 @@ import categoriaRoutes from "./src/routes/categoriaRoutes.js"; // Importa as rot
 const app = express();
 const PORT = env.PORT || 3000; // Usa a porta do arquivo .env ou 3000 como padrão
 
+//uso do cors
+app.use(cors());
 // Configuração do Express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

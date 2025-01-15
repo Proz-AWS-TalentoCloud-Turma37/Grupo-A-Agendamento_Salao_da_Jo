@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Certifique-se de configurar corretamente no arquivo .env
+}
+
+model Usuario {
+  id             Int           @id @default(autoincrement())
+  nome           String
+  email          String        @unique
+  senha          String
+  celular        String?
+  tipo           TipoUsuario   @default(CLIENTE)
+  horarios       Horario[]     // Relacionamento apenas para profissionais
+  agendamentos   Agendamento[] // Relacionamento apenas para clientes
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Horario {
+  id             Int           @id @default(autoincrement())
+  dataHora       DateTime
+  disponivel     Boolean        @default(true)
+  profissionalId Int
+  profissional   Usuario        @relation(fields: [profissionalId], references: [id])
+  agendamento    Agendamento?   // Um horário pode ou não ter um agendamento
+}
+
+model Agendamento {
+  id             Int           @id @default(autoincrement())
+  horarioId      Int           @unique // Garantia de relacionamento 1:1
+  horario        Horario        @relation(fields: [horarioId], references: [id])
+  clienteId      Int
+  cliente        Usuario        @relation(fields: [clienteId], references: [id])
+  observacao     String?
+  createdAt      DateTime       @default(now())
+}
+
+model Categoria {
+  id             Int           @id @default(autoincrement())
+  nome           String        @unique // Nome da categoria, como "Cabeleireira" ou "Manicure"
+  servicos       Servico[]     // Relacionamento com os serviços
+}
+
+model Servico {
+  id             Int           @id @default(autoincrement())
+  titulo         String        // Nome do serviço, como "Corte Feminino"
+  descricao      String?       // Descrição opcional do serviço
+  duracao        Int           // Duração do serviço em minutos
+  valor          Float         // Preço do serviço
+  categoriaId    Int
+  categoria      Categoria     @relation(fields: [categoriaId], references: [id])
+}
+
+enum TipoUsuario {
+  CLIENTE
+  PROFISSIONAL
+  ADMINISTRADOR
+}
