@@ -14,23 +14,86 @@
 <body class="bg-light">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-md-top bg-success bg-gradient">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <span class="oi oi-globe me-2"></span> SalaoEssencia
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <a class="navbar-brand d-flex justify-content-start text-white" href="index.html">
+                Salão Essência</a>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-white"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><span class="oi oi-home"></span> Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="jogos.html"><span class="oi oi-gamepad"></span> Jogos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contato.html"><span class="oi oi-envelope-closed"></span> Contato</a></li>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="sobre.html">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="midia.html">Mídia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="servicos.html">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a type="button" class="btn btn-outline-light ms-3" data-bs-toggle="modal" data-bs-target="#agendamentoModal" href="#"><i class="bi bi-box-arrow-in-right"></i> Entrar</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <!-- Modal para Agendamento -->
+    <div class="modal fade" id="agendamentoModal" tabindex="-1" aria-labelledby="agendamentoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="agendamentoModalLabel">Entre e agende seu horário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" action="" method="POST" novalidate>                  
+                            <div class="mb-3">
+                                <input type="text" name="username" class="form-control" id="username" placeholder="Email" required>
+                            </div>
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Senha" required>
+                                <button type="button" class="btn  border border-secondary-subtle rounded-end" onclick="togglePassword('password')">
+                                    <i class="bi bi-eye" id="password-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Alert de erro (invisível por padrão) -->
+                        <div id="alertContainer" class="alert alert-danger d-none" role="alert">
+                            <ul id="errorList" class="mb-0"></ul>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center">
+                            <button type="reset" class="btn btn-danger me-4">Limpar</button>
+                            <button type="submit" class="btn btn-success">Entrar</button>  
+                        </div>
+                    </form>
+                    <div class="text-center"><span>OU</span></div>
+                    
+                    <div class="mt-1 mb-4 text-center">
+                        Não tem uma conta?
+                        <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#cadastroModal" data-bs-dismiss="modal">Cadastre-se</a>
+                    </div>
+                    <div class="d-flex align-items-center mt-3">
+                        <hr class="flex-grow-1" />
+                        <button type="button"
+                        class="btn btn-light px-3 mx-2 d-flex align-items-center justify-content-center">
+                        <img class="border-opacity-10" src="https://developers.google.com/identity/images/g-logo.png"
+                            alt="Google" width="30px">
+                        </button>
+                        <hr class="flex-grow-1" />
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
 
     <!-- Formulário de Criação de Conta -->
     <section class="container my-5">
