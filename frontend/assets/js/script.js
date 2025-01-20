@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Validação do Login
     if (loginForm) {
         loginForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Impede envio automático do formulário
+            event.preventDefault();
             limparErros(loginForm);
 
             const username = document.getElementById('username');
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Validação do Cadastro
     if (cadastroForm) {
         cadastroForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Impede envio automático do formulário
+            event.preventDefault();
             limparErros(cadastroForm);
 
             const nome = document.getElementById('nome');
