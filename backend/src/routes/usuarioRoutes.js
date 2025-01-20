@@ -10,4 +10,7 @@ router.get("/:id", UsuarioController.buscarPorId);  // Buscar usuário por ID
 router.put("/:id", UsuarioController.atualizar);    // Atualizar usuário
 router.delete("/:id", UsuarioController.deletar);   // Deletar usuário
 
+// Adicionar rota para login
+router.post("/login", UsuarioController.login);
+
 export default router;

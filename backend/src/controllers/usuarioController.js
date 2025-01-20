@@ -1,10 +1,47 @@
 import { PrismaClient } from "@prisma/client";
 import { body, param, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import env from "../environment.js";
 
 const prisma = new PrismaClient();
 
 class UsuarioController {
+    // Login do usuário
+    async login(req, res) {
+        const { email, senha } = req.body;
+
+        try {
+            if (!email || !senha) {
+                return res.status(400).send("Email e senha são obrigatórios");
+            }
+
+            // Verificar se o usuário existe
+            const usuario = await prisma.usuario.findUnique({ where: { email } });
+            if (!usuario) {
+                return res.status(401).send("Credenciais inválidas");
+            }
+
+            // Validar a senha
+            const senhaValida = await bcrypt.compare(senha, usuario.senha);
+            if (!senhaValida) {
+                return res.status(401).send("Credenciais inválidas");
+            }
+
+            // Gerar o token JWT
+            const token = jwt.sign(
+                { id: usuario.id, email: usuario.email, tipo: usuario.tipo },
+                env.JWT_SECRET,
+                { expiresIn: "1h" } // Token válido por 1 hora
+            );
+
+            return res.status(200).json({ token });
+        } catch (error) {
+            console.error("Erro ao efetuar login:", error);
+            return res.status(500).send("Erro no servidor");
+        }
+    }
+
     // Criar um novo usuário
     async criar(req, res) {
         // Validação de dados com express-validator

@@ -1,11 +1,7 @@
-### Criar Usuário
-POST http://localhost:3000/api/usuarios/
+POST http://localhost:3000/api/usuarios/login
 Content-Type: application/json
 
 {
-    "nome": "dedomole",
-    "email": "negodaquebrada@gmail.com",
-    "senha": "senha123",
-    "celular": "11999999999",
-    "tipo": "CLIENTE"
+  "email": "joaomariano@gmail.com",
+  "senha": "senha123"
 }
