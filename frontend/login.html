@@ -3,21 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ArenaPlay</title>
-    
-    <!-- Link para o Bootstrap CSS -->
+    <title>Login - Salão da Jo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Link para o Open Iconic CSS -->
     <link rel="stylesheet" href="open-iconic/font/css/open-iconic-bootstrap.min.css">
 </head>
 <body class="bg-light">
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <span class="oi oi-globe me-2"></span> ArenaPlay
+                <span class="oi oi-globe me-2"></span> Salão da Jo
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,33 +20,34 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html"><span class="oi oi-home"></span> Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="jogos.html"><span class="oi oi-gamepad"></span> Jogos</a></li>
                     <li class="nav-item"><a class="nav-link" href="contato.html"><span class="oi oi-envelope-closed"></span> Contato</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Formulário de Login -->
     <section class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h1 class="text-center mb-4"><span class="oi oi-lock-locked"></span> Login</h1>
-                        <p class="text-center">Faça login na sua conta para prosseguir para a plataforma</p>
+                        <p class="text-center">Entre na sua conta para continuar</p>
 
-                        <form id="login-form" action="" method="post">
+                        <form id="login-form">
                             <div class="mb-3">
-                                <label for="nomeusuario" class="form-label"><span class="oi oi-person"></span> Nome de Usuário:</label>
-                                <input type="text" id="nomeusuario" name="nomeusuario" class="form-control" placeholder="Digite seu nome de usuário" data-min-length="3" data-required>
-                                <div class="error-validation template" style="display: none;"></div>
+                                <label for="nomeusuario" class="form-label"><span class="oi oi-person"></span> Nome:</label>
+                                <input type="text" id="nomeusuario" name="nome" class="form-control" placeholder="Digite seu nome" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label"><span class="oi oi-envelope-closed"></span> Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="senha" class="form-label"><span class="oi oi-lock-locked"></span> Senha:</label>
-                                <input type="password" id="senha" name="senha" class="form-control" placeholder="Digite sua senha" data-min-length="6" data-required>
-                                <div class="error-validation template" style="display: none;"></div>
+                                <input type="password" id="senha" name="senha" class="form-control" placeholder="Digite sua senha" required>
                             </div>
 
                             <div class="form-check mb-3">
@@ -59,18 +55,13 @@
                                 <label for="showPassword" class="form-check-label"><span class="oi oi-eye"></span> Mostrar senha</label>
                             </div>
 
-                            <p class="text-center">Clique em entrar para fazer login</p>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">
                                     <span class="oi oi-account-login"></span> Entrar
                                 </button>
                             </div>
-                            <p class="text-center mt-3">Ou, se esqueceu a senha, redefina abaixo:</p>
-                            <div class="text-center">
-                                <a href="redefinir.html" class="btn btn-link">
-                                    <span class="oi oi-key"></span> Esqueci a senha
-                                </a>
-                            </div>
+
+                            <p class="text-center mt-3">Não tem uma conta? <a href="criar-conta.html">Crie agora</a></p>
                         </form>
                     </div>
                 </div>
@@ -78,14 +69,6 @@
         </div>
     </section>
 
-    <!-- Som de erro -->
-<audio id="errorSound" preload="auto">
-    <source src="sons/error.mp3" type="audio/mpeg">
-    Seu navegador não suporta o elemento de áudio.
-</audio>
-
-    <!-- Scripts Bootstrap e form.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/form.js"></script>
 </body>
 </html>
