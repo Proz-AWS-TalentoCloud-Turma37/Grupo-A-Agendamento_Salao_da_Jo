@@ -1,3 +1,4 @@
+// Função que é executada quando o documento HTML é carregado
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("register-form");
 
@@ -8,10 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Adiciona um evento para alternar a visibilidade da senha
     const showPasswordCheckbox = document.getElementById("showPassword");
     if (showPasswordCheckbox) {
         showPasswordCheckbox.addEventListener("change", togglePasswordVisibility);
     }
+
+    // Aplicar máscara no campo celular
+    const celular = document.getElementById('celular');
+    if (celular) aplicarMascaraTelefone(celular);
 });
 
 // Função para alternar visibilidade da senha
@@ -61,4 +67,28 @@ async function cadastrarUsuario() {
     } catch (error) {
         alert("Não foi possível criar a conta. Tente novamente mais tarde.");
     }
+}
+
+// Função para aplicar máscara de telefone
+function aplicarMascaraTelefone(input) {
+    input.addEventListener('input', function () {
+        let valor = input.value.replace(/\D/g, ''); // Remove tudo que não é número
+        if (valor.length > 10) {
+            valor = valor.replace(/^\(\d{2}\)\d{5}-\d{4}$/); // Formata o número
+        } else {
+            valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1)$2-$3');
+        }
+        input.value = valor.substring(0, 14); // Limita ao tamanho máximo
+    });
+}
+
+// Função para marcar campos inválidos
+function marcarInvalido(campo) {
+    campo.classList.add('is-invalid');
+}
+
+// Função para limpar marcações de erro
+function limparErros(form) {
+    const campos = form.querySelectorAll('.is-invalid');
+    campos.forEach(campo => campo.classList.remove('is-invalid'));
 }
