@@ -1,27 +1,36 @@
 import cors from "cors";
 import express from "express";
+import path from "path";
 import env from "./src/environment.js";
 import usuarioRoutes from "./src/routes/usuarioRoutes.js";
 import horarioRoutes from "./src/routes/horarioRoutes.js";
 import agendamentoRoutes from "./src/routes/agendamentoRoutes.js";
 import servicoRoutes from "./src/routes/servicoRoutes.js"; // Importa as rotas de serviços
 import categoriaRoutes from "./src/routes/categoriaRoutes.js"; // Importa as rotas de categorias
+import indexRoutes from "./src/routes/indexRoutes.js";
 
 const app = express();
-const PORT = env.PORT || 3000; // Usa a porta do arquivo .env ou 3000 como padrão
+const PORT = env.PORT || 3000;
 
-//uso do cors
+// Middleware para servir arquivos estáticos
+app.use(express.static(path.join(process.cwd(), "frontend")));
+
+// Configuração do CORS
 app.use(cors());
+
 // Configuração do Express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rotas
+// Rotas públicas (index e similares)
+app.use("/", indexRoutes);
+
+// Rotas protegidas
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/horarios", horarioRoutes);
 app.use("/api/agendamentos", agendamentoRoutes);
-app.use("/api/servicos", servicoRoutes); // Adiciona a rota de serviços
-app.use("/api/categorias", categoriaRoutes); // Adiciona a rota de categorias
+app.use("/api/servicos", servicoRoutes);
+app.use("/api/categorias", categoriaRoutes);
 
 // Middleware de erro
 app.use((err, req, res, next) => {
