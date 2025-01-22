@@ -40,17 +40,15 @@ class AuthManager {
     // Alterna visibilidade da senha
     togglePasswordVisibility(event) {
         const senha = document.getElementById("senha");
-        const confirmSenha = document.getElementById("confirmSenha");
         const type = event.target.checked ? "text" : "password";
         if (senha) senha.type = type;
-        if (confirmSenha) confirmSenha.type = type;
     }
 
     // Validação de campos
     validarCampos(campos) {
         let valido = true;
         campos.forEach(({ campo, mensagem }) => {
-            if (!campo.value.trim()) {
+            if (!campo || !campo.value.trim()) {
                 this.marcarInvalido(campo, mensagem);
                 valido = false;
             }
@@ -81,9 +79,9 @@ class AuthManager {
         const nome = document.getElementById("nomeusuario");
         const email = document.getElementById("email");
         const senha = document.getElementById("senha");
-        const confirmSenha = document.getElementById("confirmSenha");
+        //const confirmSenha = document.getElementById("confirmSenha");
         const celular = document.getElementById("celular");
-        const tipo = document.getElementById("tipo");
+
 
         this.limparErros(this.formRegister);
 
@@ -92,13 +90,7 @@ class AuthManager {
             { campo: nome, mensagem: "Nome é obrigatório" },
             { campo: email, mensagem: "Email é obrigatório" },
             { campo: senha, mensagem: "Senha é obrigatória" },
-            { campo: tipo, mensagem: "Tipo de usuário é obrigatório" }
         ])) return;
-
-        if (senha.value !== confirmSenha.value) {
-            this.marcarInvalido(confirmSenha, "As senhas não coincidem");
-            return;
-        }
 
         try {
             const response = await fetch("http://localhost:3000/api/usuarios/", {
@@ -109,12 +101,12 @@ class AuthManager {
                     email: email.value,
                     senha: senha.value,
                     celular: celular.value,
-                    tipo: tipo.value.toUpperCase(),
+                    tipo: "CLIENTE",
                 }),
             });
 
             if (response.ok) {
-                alert("Conta criada com sucesso!");
+                console.log("Conta criada com sucesso!");
                 window.location.href = "login.html";
             } else {
                 const result = await response.text();
