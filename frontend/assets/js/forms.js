@@ -1,8 +1,8 @@
 // Classe responsável por gerenciar o registro e o login
 class AuthManager {
     constructor() {
-        this.formRegister = document.getElementById("cadastroForm"); // Ajustado para o ID correto
-        this.formLogin = document.getElementById("loginForm"); // Ajustado para o ID correto
+        this.formRegister = document.getElementById("cadastroForm");
+        this.formLogin = document.getElementById("loginForm");
         this.init();
     }
 
@@ -28,27 +28,29 @@ class AuthManager {
 
     // Configura eventos como alternar visibilidade da senha
     configurarEventosAdicionais() {
-        // Checkbox para exibir senha no modal de login
-        const showPasswordLoginCheckbox = document.getElementById("showPassword");
-        if (showPasswordLoginCheckbox) {
-            showPasswordLoginCheckbox.addEventListener("change", (event) =>
-                this.togglePasswordVisibility(event, "senhaLogin")
-            );
-        }
+        const showPasswordCheckboxes = document.querySelectorAll("#showPassword");
 
-        // Checkbox para exibir senha no modal de cadastro
-        const showPasswordCadastroCheckbox = document.getElementById("showPassword");
-        if (showPasswordCadastroCheckbox) {
-            showPasswordCadastroCheckbox.addEventListener("change", (event) =>
-                this.togglePasswordVisibility(event, "senhaCadastro")
-            );
-        }
+        showPasswordCheckboxes.forEach((checkbox) => {
+            checkbox.addEventListener("change", (event) => {
+                const senhaId = checkbox.closest("#agendamentoModal") ? "senhaLogin" : "senhaCadastro";
+                this.togglePasswordVisibility(event, senhaId);
+            });
+        });
 
+        this.inicializarMascaras();
+    }
+
+    // Inicializa máscaras de forma isolada
+    inicializarMascaras() {
         const celular = document.getElementById("celular");
-        if (celular) this.aplicarMascaraTelefone(celular);
+        if (celular) {
+            this.aplicarMascaraTelefone(celular);
+        }
 
         const cpf = document.getElementById("cpf");
-        if (cpf) this.aplicarMascaraCPF(cpf);
+        if (cpf) {
+            this.aplicarMascaraCPF(cpf);
+        }
     }
 
     // Alterna visibilidade da senha
@@ -95,7 +97,7 @@ class AuthManager {
         const email = document.getElementById("email");
         const senha = document.getElementById("senhaCadastro");
         const celular = document.getElementById("celular");
-        const cpf = document.getElementById("cpf"); // Adicionado CPF
+        const cpf = document.getElementById("cpf");
 
         this.limparErros(this.formRegister);
 
@@ -105,7 +107,7 @@ class AuthManager {
                 { campo: nome, mensagem: "Nome é obrigatório" },
                 { campo: email, mensagem: "Email é obrigatório" },
                 { campo: senha, mensagem: "Senha é obrigatória" },
-                { campo: cpf, mensagem: "CPF é obrigatório" }, // Adicionada validação do CPF
+                { campo: cpf, mensagem: "CPF é obrigatório" },
             ])
         )
             return;
@@ -119,7 +121,7 @@ class AuthManager {
                     email: email.value,
                     senha: senha.value,
                     celular: celular.value,
-                    cpf: cpf.value, // Adicionado CPF na requisição
+                    cpf: cpf.value,
                     tipo: "CLIENTE",
                 }),
             });
@@ -139,7 +141,7 @@ class AuthManager {
 
     // Login do usuário
     async fazerLogin() {
-        const email = document.getElementById("username"); // Ajustado para o ID correto no modal de login
+        const email = document.getElementById("username");
         const senha = document.getElementById("senhaLogin");
 
         this.limparErros(this.formLogin);
@@ -202,5 +204,4 @@ class AuthManager {
     }
 }
 
-// Inicializa o AuthManager quando o documento estiver carregado
 document.addEventListener("DOMContentLoaded", () => new AuthManager());
