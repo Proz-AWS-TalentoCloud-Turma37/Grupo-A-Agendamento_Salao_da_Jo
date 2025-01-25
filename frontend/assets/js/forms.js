@@ -1,8 +1,8 @@
 // Classe responsável por gerenciar o registro e o login
 class AuthManager {
     constructor() {
-        this.formRegister = document.getElementById("register-form");
-        this.formLogin = document.getElementById("login-form");
+        this.formRegister = document.getElementById("cadastroForm"); // Ajustado para o ID correto
+        this.formLogin = document.getElementById("loginForm"); // Ajustado para o ID correto
         this.init();
     }
 
@@ -28,20 +28,35 @@ class AuthManager {
 
     // Configura eventos como alternar visibilidade da senha
     configurarEventosAdicionais() {
-        const showPasswordCheckbox = document.getElementById("showPassword");
-        if (showPasswordCheckbox) {
-            showPasswordCheckbox.addEventListener("change", (event) => this.togglePasswordVisibility(event));
+        // Checkbox para exibir senha no modal de login
+        const showPasswordLoginCheckbox = document.getElementById("showPassword");
+        if (showPasswordLoginCheckbox) {
+            showPasswordLoginCheckbox.addEventListener("change", (event) =>
+                this.togglePasswordVisibility(event, "senhaLogin")
+            );
         }
 
-        const celular = document.getElementById('celular');
+        // Checkbox para exibir senha no modal de cadastro
+        const showPasswordCadastroCheckbox = document.getElementById("showPassword");
+        if (showPasswordCadastroCheckbox) {
+            showPasswordCadastroCheckbox.addEventListener("change", (event) =>
+                this.togglePasswordVisibility(event, "senhaCadastro")
+            );
+        }
+
+        const celular = document.getElementById("celular");
         if (celular) this.aplicarMascaraTelefone(celular);
+
+        const cpf = document.getElementById("cpf");
+        if (cpf) this.aplicarMascaraCPF(cpf);
     }
 
     // Alterna visibilidade da senha
-    togglePasswordVisibility(event) {
-        const senha = document.getElementById("senha");
-        const type = event.target.checked ? "text" : "password";
-        if (senha) senha.type = type;
+    togglePasswordVisibility(event, senhaId) {
+        const senha = document.getElementById(senhaId);
+        if (senha) {
+            senha.type = event.target.checked ? "text" : "password";
+        }
     }
 
     // Validação de campos
@@ -57,40 +72,43 @@ class AuthManager {
     }
 
     marcarInvalido(campo, mensagem) {
-        campo.classList.add('is-invalid');
+        campo.classList.add("is-invalid");
         let errorDiv = campo.nextElementSibling;
-        if (!errorDiv || !errorDiv.classList.contains('error-message')) {
-            errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message text-danger';
+        if (!errorDiv || !errorDiv.classList.contains("error-message")) {
+            errorDiv = document.createElement("div");
+            errorDiv.className = "error-message text-danger";
             campo.parentNode.appendChild(errorDiv);
         }
         errorDiv.textContent = mensagem;
     }
 
     limparErros(form) {
-        const campos = form.querySelectorAll('.is-invalid');
-        campos.forEach(campo => campo.classList.remove('is-invalid'));
-        const mensagens = form.querySelectorAll('.error-message');
-        mensagens.forEach(msg => msg.remove());
+        const campos = form.querySelectorAll(".is-invalid");
+        campos.forEach((campo) => campo.classList.remove("is-invalid"));
+        const mensagens = form.querySelectorAll(".error-message");
+        mensagens.forEach((msg) => msg.remove());
     }
 
     // Cadastro de usuário
     async cadastrarUsuario() {
         const nome = document.getElementById("nomeusuario");
         const email = document.getElementById("email");
-        const senha = document.getElementById("senha");
-        //const confirmSenha = document.getElementById("confirmSenha");
+        const senha = document.getElementById("senhaCadastro");
         const celular = document.getElementById("celular");
-
+        const cpf = document.getElementById("cpf"); // Adicionado CPF
 
         this.limparErros(this.formRegister);
 
         // Validações
-        if (!this.validarCampos([
-            { campo: nome, mensagem: "Nome é obrigatório" },
-            { campo: email, mensagem: "Email é obrigatório" },
-            { campo: senha, mensagem: "Senha é obrigatória" },
-        ])) return;
+        if (
+            !this.validarCampos([
+                { campo: nome, mensagem: "Nome é obrigatório" },
+                { campo: email, mensagem: "Email é obrigatório" },
+                { campo: senha, mensagem: "Senha é obrigatória" },
+                { campo: cpf, mensagem: "CPF é obrigatório" }, // Adicionada validação do CPF
+            ])
+        )
+            return;
 
         try {
             const response = await fetch("http://localhost:3000/api/usuarios/", {
@@ -101,6 +119,7 @@ class AuthManager {
                     email: email.value,
                     senha: senha.value,
                     celular: celular.value,
+                    cpf: cpf.value, // Adicionado CPF na requisição
                     tipo: "CLIENTE",
                 }),
             });
@@ -120,16 +139,19 @@ class AuthManager {
 
     // Login do usuário
     async fazerLogin() {
-        const email = document.getElementById("email");
-        const senha = document.getElementById("senha");
+        const email = document.getElementById("username"); // Ajustado para o ID correto no modal de login
+        const senha = document.getElementById("senhaLogin");
 
         this.limparErros(this.formLogin);
 
         // Validações
-        if (!this.validarCampos([
-            { campo: email, mensagem: "Email é obrigatório" },
-            { campo: senha, mensagem: "Senha é obrigatória" }
-        ])) return;
+        if (
+            !this.validarCampos([
+                { campo: email, mensagem: "Email é obrigatório" },
+                { campo: senha, mensagem: "Senha é obrigatória" },
+            ])
+        )
+            return;
 
         try {
             const response = await fetch("http://localhost:3000/api/usuarios/login", {
@@ -158,13 +180,23 @@ class AuthManager {
 
     // Aplica máscara ao telefone
     aplicarMascaraTelefone(input) {
-        input.addEventListener('input', function () {
-            let valor = input.value.replace(/\D/g, '');
+        input.addEventListener("input", function () {
+            let valor = input.value.replace(/\D/g, "");
             if (valor.length > 10) {
-                valor = valor.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                valor = valor.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
             } else {
-                valor = valor.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                valor = valor.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
             }
+            input.value = valor;
+        });
+    }
+
+    // Aplica máscara ao CPF
+    aplicarMascaraCPF(input) {
+        input.addEventListener("input", function () {
+            let valor = input.value.replace(/\D/g, "");
+            if (valor.length > 11) valor = valor.slice(0, 11);
+            valor = valor.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, "$1.$2.$3-$4");
             input.value = valor;
         });
     }
