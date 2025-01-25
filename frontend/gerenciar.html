@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Painel Administrativo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .acoes-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .acoes-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .acoes-menu a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h3 class="text-center">Painel Administrativo</h3>
+        <a href="#" onclick="carregarSecao('usuarios')">Gerenciar Usuários</a>
+        <a href="#" onclick="carregarSecao('servicos')">Gerenciar Serviços</a>
+        <a href="#" onclick="carregarSecao('categorias')">Gerenciar Categorias</a>
+        <a href="#" onclick="carregarSecao('horarios')">Gerenciar Horários</a>
+        <a href="#" id="logoutButton">Sair</a>
+    </nav>
+
+    <!-- Conteúdo -->
+    <div class="content">
+        <header class="container-fluid mb-4">
+            <div id="messageContainer" class="alert" role="alert" style="display: none;"></div>
+        </header>
+
+        <!-- Área dinâmica para exibir as diferentes seções -->
+        <main id="mainContent">
+            <h1 class="text-center">Bem-vindo ao Painel Administrativo</h1>
+            <p class="text-center">Escolha uma opção no menu para começar.</p>
+        </main>
+    </div>
+
+    <!-- Modais (dinâmicos conforme a seção carregada) -->
+    <div id="modalContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let loadedScripts = new Set(); // Evita carregar scripts duplicados
+
+        function carregarSecao(secao) {
+            const mainContent = document.getElementById('mainContent');
+            const modalContainer = document.getElementById('modalContainer');
+            let jsFile;
+
+            switch (secao) {
+                case 'usuarios':
+                    jsFile = 'gerenciar_usuario.js';
+                    mainContent.innerHTML = `
+                        <h2>Gerenciar Usuários</h2>
+                        <div id="userList"></div>
+                    `;
+                    modalContainer.innerHTML = `
+                        <!-- Modal de Edição de Usuário -->
+                        <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="editUserModalLabel">Editar Usuário</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="editUserForm">
+                                            <input type="hidden" id="editUserId">
+                                            <div class="mb-3">
+                                                <label for="editName" class="form-label">Nome:</label>
+                                                <input type="text" id="editName" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="editEmail" class="form-label">Email:</label>
+                                                <input type="email" id="editEmail" class="form-control">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onclick="saveUserChanges()">Salvar Alterações</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'servicos':
+                    jsFile = 'gerenciar_servicos.js';
+                    mainContent.innerHTML = `
+                        <h2>Gerenciar Serviços</h2>
+                        <div id="serviceList"></div>
+                    `;
+                    modalContainer.innerHTML = `
+                        <!-- Modal de Edição de Serviço -->
+                        <div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="editServiceModalLabel">Editar Serviço</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="editServiceForm">
+                                            <input type="hidden" id="editServiceId">
+                                            <div class="mb-3">
+                                                <label for="editServiceTitle" class="form-label">Título:</label>
+                                                <input type="text" id="editServiceTitle" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="editServicePrice" class="form-label">Preço:</label>
+                                                <input type="number" id="editServicePrice" class="form-control">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" onclick="salvarAlteracoesServico()">Salvar Alterações</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                default:
+                    mainContent.innerHTML = '<h2>Seção não encontrada</h2>';
+                    modalContainer.innerHTML = '';
+                    return;
+            }
+
+            // Carrega o script correspondente, evitando duplicação
+            if (!loadedScripts.has(jsFile)) {
+                const script = document.createElement('script');
+                script.src = `assets/js/${jsFile}`;
+                script.onload = () => loadedScripts.add(jsFile);
+                document.body.appendChild(script);
+            }
+        }
+    </script>
+</body>
+</html>
