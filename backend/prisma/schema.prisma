@@ -13,6 +13,7 @@ model Usuario {
   email          String        @unique
   senha          String
   celular        String?
+  cpf            String        @unique // Adicionado CPF como campo único
   tipo           TipoUsuario   @default(CLIENTE)
   horarios       Horario[]     // Relacionamento apenas para profissionais
   agendamentos   Agendamento[] // Relacionamento apenas para clientes

@@ -16,23 +16,20 @@ class UsuarioController {
                 return res.status(400).send("Email e senha são obrigatórios");
             }
 
-            // Verificar se o usuário existe
             const usuario = await prisma.usuario.findUnique({ where: { email } });
             if (!usuario) {
                 return res.status(401).send("Credenciais inválidas");
             }
 
-            // Validar a senha
             const senhaValida = await bcrypt.compare(senha, usuario.senha);
             if (!senhaValida) {
                 return res.status(401).send("Credenciais inválidas");
             }
 
-            // Gerar o token JWT
             const token = jwt.sign(
                 { id: usuario.id, email: usuario.email, tipo: usuario.tipo },
                 env.JWT_SECRET,
-                { expiresIn: "1h" } // Token válido por 1 hora
+                { expiresIn: "1h" }
             );
 
             return res.status(200).json({ token });
@@ -44,7 +41,6 @@ class UsuarioController {
 
     // Criar um novo usuário
     async criar(req, res) {
-        // Validação de dados com express-validator
         await body("nome").notEmpty().withMessage("Nome é obrigatório").run(req);
         await body("email").isEmail().withMessage("Email inválido").run(req);
         await body("senha").isLength({ min: 6 }).withMessage("Senha deve ter pelo menos 6 caracteres").run(req);
@@ -52,40 +48,43 @@ class UsuarioController {
             .isIn(["CLIENTE", "PROFISSIONAL", "ADMINISTRADOR"])
             .withMessage("Tipo de usuário inválido")
             .run(req);
+        await body("cpf")
+            .isLength({ min: 11, max: 14 })
+            .withMessage("CPF inválido")
+            .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/)
+            .withMessage("Formato de CPF inválido")
+            .run(req);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { nome, email, senha, celular, tipo } = req.body;
+        const { nome, email, senha, celular, tipo, cpf } = req.body;
 
         try {
-            // Verificar se o e-mail já está em uso
             const usuarioExistente = await prisma.usuario.findUnique({ where: { email } });
             if (usuarioExistente) {
                 return res.status(400).send("Email já está em uso");
             }
 
-            // Criptografar a senha
+            const cpfExistente = await prisma.usuario.findUnique({ where: { cpf } });
+            if (cpfExistente) {
+                return res.status(400).send("CPF já está em uso");
+            }
+
             const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-            // Criar o usuário
             const usuario = await prisma.usuario.create({
-                data: {
-                    nome,
-                    email,
-                    senha: senhaCriptografada,
-                    celular,
-                    tipo,
-                },
+                data: { nome, email, senha: senhaCriptografada, celular, tipo, cpf },
             });
 
-            return res.status(201).json({ 
-                id: usuario.id, 
-                nome: usuario.nome, 
-                email: usuario.email, 
-                tipo: usuario.tipo 
+            return res.status(201).json({
+                id: usuario.id,
+                nome: usuario.nome,
+                email: usuario.email,
+                tipo: usuario.tipo,
+                cpf: usuario.cpf,
             });
         } catch (error) {
             console.error(`Erro ao criar usuário: ${error.message}`);
@@ -103,6 +102,7 @@ class UsuarioController {
                     email: true,
                     celular: true,
                     tipo: true,
+                    cpf: true,
                     createdAt: true,
                 },
             });
@@ -115,7 +115,6 @@ class UsuarioController {
 
     // Buscar um usuário por ID
     async buscarPorId(req, res) {
-        // Validação de ID
         await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
 
         const errors = validationResult(req);
@@ -134,6 +133,7 @@ class UsuarioController {
                     email: true,
                     celular: true,
                     tipo: true,
+                    cpf: true,
                     createdAt: true,
                 },
             });
@@ -151,10 +151,14 @@ class UsuarioController {
 
     // Atualizar informações de um usuário
     async atualizar(req, res) {
-        // Validação de dados
         await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
         await body("email").optional().isEmail().withMessage("Email inválido").run(req);
         await body("senha").optional().isLength({ min: 6 }).withMessage("Senha deve ter pelo menos 6 caracteres").run(req);
+        await body("cpf")
+            .optional()
+            .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/)
+            .withMessage("Formato de CPF inválido")
+            .run(req);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -162,7 +166,7 @@ class UsuarioController {
         }
 
         const { id } = req.params;
-        const { nome, email, senha, celular, tipo } = req.body;
+        const { nome, email, senha, celular, tipo, cpf } = req.body;
 
         try {
             const dadosAtualizados = {
@@ -170,6 +174,7 @@ class UsuarioController {
                 email: email || undefined,
                 celular: celular || undefined,
                 tipo: tipo || undefined,
+                cpf: cpf || undefined,
             };
 
             if (senha) {
@@ -190,14 +195,6 @@ class UsuarioController {
 
     // Deletar um usuário
     async deletar(req, res) {
-        // Validação de ID
-        await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
         const { id } = req.params;
 
         try {
