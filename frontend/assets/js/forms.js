@@ -128,17 +128,37 @@ class AuthManager {
 
             if (response.ok) {
                 console.log("Conta criada com sucesso!");
-                window.location.href = "login.html";
+                
+                const sucessoDiv = document.createElement("div");
+                sucessoDiv.className = "alert alert-success mt-3";
+                sucessoDiv.textContent = "Conta criada com sucesso! Faça login para continuar.";
+                this.formRegister.appendChild(sucessoDiv);
+            
+                setTimeout(() => {
+                    const cadastroModal = bootstrap.Modal.getInstance(document.getElementById("cadastroModal"));
+                    if (cadastroModal) cadastroModal.hide();
+            
+                    const agendamentoModal = new bootstrap.Modal(document.getElementById("agendamentoModal"));
+                    agendamentoModal.show();
+            
+                    sucessoDiv.remove();
+                }, 2000);
             } else {
                 const result = await response.text();
-                alert(`Erro ao criar conta: ${result}`);
+            
+                const erroDiv = document.createElement("div");
+                erroDiv.className = "alert alert-danger mt-3";
+                erroDiv.textContent = `Erro ao criar conta: ${result}`;
+                this.formRegister.appendChild(erroDiv);
+            
+                setTimeout(() => erroDiv.remove(), 5000);
             }
         } catch (error) {
             console.error("Erro ao conectar com o servidor:", error);
             alert("Erro ao conectar com o servidor. Tente novamente mais tarde.");
         }
     }
-
+////
     // Login do usuário
     async fazerLogin() {
         const email = document.getElementById("username");
