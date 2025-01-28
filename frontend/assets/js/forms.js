@@ -128,29 +128,29 @@ class AuthManager {
 
             if (response.ok) {
                 console.log("Conta criada com sucesso!");
-                
+
                 const sucessoDiv = document.createElement("div");
                 sucessoDiv.className = "alert alert-success mt-3";
                 sucessoDiv.textContent = "Conta criada com sucesso! Faça login para continuar.";
                 this.formRegister.appendChild(sucessoDiv);
-            
+
                 setTimeout(() => {
                     const cadastroModal = bootstrap.Modal.getInstance(document.getElementById("cadastroModal"));
                     if (cadastroModal) cadastroModal.hide();
-            
+
                     const agendamentoModal = new bootstrap.Modal(document.getElementById("agendamentoModal"));
                     agendamentoModal.show();
-            
+
                     sucessoDiv.remove();
                 }, 2000);
             } else {
                 const result = await response.text();
-            
+
                 const erroDiv = document.createElement("div");
                 erroDiv.className = "alert alert-danger mt-3";
                 erroDiv.textContent = `Erro ao criar conta: ${result}`;
                 this.formRegister.appendChild(erroDiv);
-            
+
                 setTimeout(() => erroDiv.remove(), 5000);
             }
         } catch (error) {
@@ -158,7 +158,7 @@ class AuthManager {
             alert("Erro ao conectar com o servidor. Tente novamente mais tarde.");
         }
     }
-////
+
     // Login do usuário
     async fazerLogin() {
         const email = document.getElementById("username");
@@ -187,9 +187,26 @@ class AuthManager {
 
             if (response.ok) {
                 const result = await response.json();
-                alert("Login realizado com sucesso!");
+
+                // Armazena o token no localStorage
                 localStorage.setItem("token", result.token);
-                window.location.href = "index.html";
+
+                // Decodifica o token JWT para obter informações do usuário
+                const payload = JSON.parse(atob(result.token.split(".")[1]));
+                const userType = payload.tipo;
+
+                alert("Login realizado com sucesso!");
+
+                // Redireciona para diferentes áreas com base no tipo de usuário
+                if (userType === "CLIENTE") {
+                    window.location.href = "/dashboard_area_do_usuario.html";
+                } else if (userType === "PROFISSIONAL") {
+                    window.location.href = "/dashboard_area_do_profissional.html";
+                } else if (userType === "ADMINISTRADOR") {
+                    window.location.href = "/admin.html";
+                } else {
+                    alert("Tipo de usuário inválido. Entre em contato com o suporte.");
+                }
             } else {
                 const result = await response.text();
                 alert(`Erro ao fazer login: ${result}`);
@@ -199,6 +216,7 @@ class AuthManager {
             alert("Erro ao conectar com o servidor. Tente novamente mais tarde.");
         }
     }
+
 
     // Aplica máscara ao telefone
     aplicarMascaraTelefone(input) {
