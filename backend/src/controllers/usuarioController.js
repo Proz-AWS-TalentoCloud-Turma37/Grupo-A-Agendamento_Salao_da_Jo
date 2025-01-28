@@ -7,6 +7,25 @@ import env from "../environment.js";
 const prisma = new PrismaClient();
 
 class UsuarioController {
+    // Middleware para verificar se o usuário é administrador
+    isAdmin(req, res, next) {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return res.status(403).send("Acesso negado");
+        }
+
+        try {
+            const decoded = jwt.verify(token, env.JWT_SECRET);
+            if (decoded.tipo !== "ADMINISTRADOR") {
+                return res.status(403).send("Acesso negado");
+            }
+            req.user = decoded;
+            next();
+        } catch (error) {
+            return res.status(403).send("Acesso negado");
+        }
+    }
+
     // Login do usuário
     async login(req, res) {
         const { email, senha } = req.body;
