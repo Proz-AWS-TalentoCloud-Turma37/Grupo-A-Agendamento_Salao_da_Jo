@@ -9,25 +9,21 @@ function showMessage(message, type) {
 
     setTimeout(() => {
         messageContainer.style.display = 'none';
-    }, 4000); // A mensagem será ocultada após 4 segundos
+    }, 4000);
 }
 
-// Função para obter usuários
+// Função para obter usuários ordenados alfabeticamente
 async function getUsers() {
     try {
         const response = await fetch(apiUrl, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' }
         });
 
-        if (!response.ok) {
-            throw new Error('Falha ao obter usuários');
-        }
+        if (!response.ok) throw new Error('Falha ao obter usuários');
 
-        const users = await response.json();
-        return users;
+        let users = await response.json();
+        return users.sort((a, b) => a.nome.localeCompare(b.nome));
     } catch (error) {
         console.error('Erro ao obter usuários:', error);
         showMessage('Erro ao carregar usuários.', 'danger');
@@ -35,129 +31,113 @@ async function getUsers() {
     }
 }
 
-// Função para atualizar usuário
-async function updateUser(userId, userData) {
-    try {
-        const response = await fetch(`${apiUrl}/${userId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
+// Função para exibir lista de usuários na tabela com filtros
+async function refreshUserList(filter = 'ALL') {
+    const users = await getUsers();
+    const userListTable = document.getElementById('userList');
+    userListTable.innerHTML = '';
 
-        if (!response.ok) {
-            throw new Error('Falha ao atualizar usuário');
-        }
-
-        showMessage('Usuário atualizado com sucesso!', 'success');
-        refreshUserList();
-    } catch (error) {
-        console.error('Erro ao atualizar usuário:', error);
-        showMessage('Erro ao atualizar usuário.', 'danger');
-    }
+    users.filter(user => filter === 'ALL' || user.tipo === filter).forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><button class="btn btn-link" onclick="openUserModal(${user.id}, '${user.nome}', '${user.email}', '${user.celular}', '${user.cpf}', '${user.tipo}')">${user.nome}</button></td>
+        `;
+        userListTable.appendChild(row);
+    });
 }
 
-// Função para deletar usuário
-async function deleteUser(userId) {
-    try {
-        const response = await fetch(`${apiUrl}/${userId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+// Função para abrir o modal de informações do usuário
+function openUserModal(userId, nome, email, celular, cpf, tipo) {
+    document.getElementById('modalUserName').textContent = nome;
+    document.getElementById('modalUserEmail').textContent = email;
+    document.getElementById('modalUserCelular').textContent = celular;
+    document.getElementById('modalUserCpf').textContent = cpf;
+    document.getElementById('modalUserTipo').textContent = tipo;
+    document.getElementById('editUserId').value = userId;
+    document.getElementById('editUserButton').setAttribute('onclick', `toggleEditForm('${email}', '${celular}', '${tipo}')`);
+    document.getElementById('deleteUserButton').setAttribute('onclick', `deleteUser(${userId})`);
 
-        if (!response.ok) {
-            throw new Error('Falha ao deletar usuário');
-        }
-
-        showMessage('Usuário deletado com sucesso!', 'success');
-        refreshUserList();
-    } catch (error) {
-        console.error('Erro ao deletar usuário:', error);
-        showMessage('Erro ao deletar usuário.', 'danger');
-    }
+    const modal = new bootstrap.Modal(document.getElementById('userActionsModal'));
+    modal.show();
 }
 
-// Função para editar um usuário
-async function editUser(userId) {
-    try {
-        const response = await fetch(`${apiUrl}/${userId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Falha ao carregar usuário');
-        }
-
-        const user = await response.json();
-
-        // Preenche os campos do modal com as informações do usuário
-        document.getElementById('editUserId').value = user.id;
-        document.getElementById('editName').value = user.nome;
-        document.getElementById('editEmail').value = user.email;
-        document.getElementById('editCelular').value = user.celular;
-        document.getElementById('editCpf').value = user.cpf;
-        document.getElementById('editTipo').value = user.tipo;
-
-        const editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
-        editModal.show();
-    } catch (error) {
-        console.error('Erro ao editar usuário:', error);
-        showMessage('Erro ao carregar usuário.', 'danger');
-    }
+// Função para expandir/recolher o formulário de edição
+function toggleEditForm(email, celular, tipo) {
+    const editForm = document.getElementById('editUserForm');
+    const saveButton = document.getElementById('saveUserChangesButton');
+    document.getElementById('editEmail').value = email;
+    document.getElementById('editCelular').value = celular;
+    document.getElementById('editTipo').value = tipo;
+    
+    editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+    saveButton.style.display = saveButton.style.display === 'none' ? 'block' : 'none';
 }
 
 // Função para salvar alterações do usuário
 async function saveUserChanges() {
     const userId = document.getElementById('editUserId').value;
     const updatedUser = {
-        nome: document.getElementById('editName').value,
         email: document.getElementById('editEmail').value,
         celular: document.getElementById('editCelular').value,
-        cpf: document.getElementById('editCpf').value,
-        tipo: document.getElementById('editTipo').value,
+        senha: document.getElementById('editSenha').value || undefined,
+        tipo: document.getElementById('editTipo').value
     };
 
-    await updateUser(userId, updatedUser);
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${apiUrl}/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(updatedUser)
+        });
 
-    const editModal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
-    editModal.hide();
+        if (!response.ok) throw new Error('Falha ao atualizar usuário');
+
+        showMessage('Usuário atualizado com sucesso!', 'success');
+        refreshUserList();
+
+        const editForm = document.getElementById('editUserForm');
+        editForm.style.display = 'none';
+        document.getElementById('saveUserChangesButton').style.display = 'none';
+    } catch (error) {
+        console.error('Erro ao atualizar usuário:', error);
+        showMessage('Erro ao atualizar usuário.', 'danger');
+    }
 }
 
-// Função para exibir lista de usuários
-async function refreshUserList() {
-    const users = await getUsers();
-    const userListDiv = document.getElementById('userList');
-    userListDiv.innerHTML = '';
-
-    users.forEach(user => {
-        const userDiv = document.createElement('div');
-        userDiv.classList.add('user-item');
-
-        userDiv.innerHTML = `
-            <p>Nome: ${user.nome}</p>
-            <p>Email: ${user.email}</p>
-            <p>CPF: ${user.cpf}</p>
-            <button class="btn btn-primary btn-sm" onclick="editUser(${user.id})">Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Excluir</button>
-        `;
-
-        userListDiv.appendChild(userDiv);
-    });
+// Função para excluir usuário
+async function deleteUser(userId) {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${apiUrl}/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (!response.ok) throw new Error('Falha ao deletar usuário');
+        showMessage('Usuário removido com sucesso!', 'success');
+        refreshUserList();
+    } catch (error) {
+        console.error('Erro ao excluir usuário:', error);
+        showMessage('Erro ao excluir usuário.', 'danger');
+    }
 }
 
 // Inicializa a página
 document.addEventListener('DOMContentLoaded', () => {
     refreshUserList();
+    document.getElementById('filterAll').addEventListener('click', () => refreshUserList('ALL'));
+    document.getElementById('filterClients').addEventListener('click', () => refreshUserList('CLIENTE'));
+    document.getElementById('filterProfessionals').addEventListener('click', () => refreshUserList('PROFISSIONAL'));
+    document.getElementById('filterAdmins').addEventListener('click', () => refreshUserList('ADMINISTRADOR'));
+});
 
-    // Evento para salvar alterações no usuário
-    document.getElementById('formEditUser').addEventListener('submit', event => {
-        event.preventDefault();
-        saveUserChanges();
-    });
+document.getElementById('formEditUser').addEventListener('submit', event => {
+    event.preventDefault();
+    saveUserChanges();
 });
