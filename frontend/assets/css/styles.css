@@ -50,10 +50,14 @@
 .custom-navbar {
     background-color: #3E760B !important;
 }
-
-.btn {
-    background-color: #3E760B !important; /* Nova cor de fundo */
+.btn-verde {
+    background-color: #fff !important; /* Nova cor de fundo */
     border-color: #3E760B !important;     /* Nova cor da borda */
+    color: #3E760B  !important;              /* Cor do texto */
+}
+.btn-verde:hover {
+    background-color: #3E760B !important; /* Nova cor de fundo */
+    border-color: #fff !important;     /* Nova cor da borda */
     color: white !important;              /* Cor do texto */
 }
 

@@ -4,334 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mídia - Salão de Beleza</title>
-   <!-- Bootstrap css-->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!-- Bootstrap css Icons-->
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+<!-- Bootstrap css-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- css-->
+<link href="assets/css/styles.css" rel="stylesheet">
+<!-- Bootstrap css Icons-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+    #hero {
+        background-image: url('assets/img/makes.jpg');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);
+    }
+</style>
 </head>
 <body>
 <!-- inicio do Menu-->
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark sticky-md-top bg-success bg-gradient">
-            <div class="container">
-                <a class="navbar-brand d-flex justify-content-start text-white" href="index.html">Salão de Beleza</a>
-                <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white" href="index.html">Início</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="sobre.html">Sobre</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="midia.html">Mídia</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="servicos.html">Serviços</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="faq.html">FAQ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a type="button" class="btn btn-outline-light ms-3" data-bs-toggle="modal" data-bs-target="#agendamentoModal" href="#"><i class="bi bi-box-arrow-in-right"></i> Entrar</a>
-                        </li>
-                    </ul>
-                </div>
+<section id="menu">
+<div id="menu-container"></div>
+<!-- Modal para Login -->
+<div class="modal fade" id="agendamentoModal" tabindex="-1" aria-labelledby="agendamentoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100" id="agendamentoModalLabel">Entre e agende seu horário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </nav>
-        <!-- Modal for Agendamento -->
-        <div class="modal fade" id="agendamentoModal" tabindex="-1" aria-labelledby="agendamentoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title w-100" id="agendamentoModalLabel">Entre e agende seu horário</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body">
+                <form id="loginForm" action="" method="POST" novalidate>
+                    <div class="mb-3">
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Email" required>
                     </div>
-                    <div class="modal-body">
-                        <form id="loginForm" action="" method="POST" novalidate>                  
-                                <div class="mb-3">
-                                    <input type="text" name="username" class="form-control" id="username" placeholder="Email" required>
-                                </div>
-                            <div class="mb-3">
-                                <div class="input-group">
-                                    <input type="password" name="password" class="form-control" id="password" placeholder="Senha" required>
-                                    <button type="button" class="btn  border border-secondary-subtle rounded-end" onclick="togglePassword('password')">
-                                        <i class="bi bi-eye" id="password-icon"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- Alert de erro (invisível por padrão) -->
-                            <div id="alertContainer" class="alert alert-danger d-none" role="alert">
-                                <ul id="errorList" class="mb-0"></ul>
-                            </div>
-                            <div class="mb-3 d-flex justify-content-center">
-                                <button type="reset" class="btn btn-danger me-4">Limpar</button>
-                                <button type="submit" class="btn btn-success">Entrar</button>  
-                            </div>
-                        </form>
-                        <div class="text-center"><span>OU</span></div>
-                        
-                        <div class="mt-1 mb-4 text-center">
-                            Não tem uma conta?
-                            <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#cadastroModal" data-bs-dismiss="modal">Cadastre-se</a>
+                    <div class="mb-3">          
+                        <input type="password" name="password" class="form-control" id="senhaLogin" placeholder="Senha" required>
+                    </div>
+                    <div class="mb-3">
+                        <!-- Checkbox Mostrar Senha -->
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="showPassword">
+                            <label class="form-check-label" for="showPassword">Mostrar senha</label>
                         </div>
-                        <div class="d-flex align-items-center mt-3">
-                            <hr class="flex-grow-1" />
-                            <button type="button"
-                            class="btn btn-light px-3 mx-2 d-flex align-items-center justify-content-center">
-                            <img class="border-opacity-10" src="https://developers.google.com/identity/images/g-logo.png"
-                                alt="Google" width="30px">
-                            </button>
-                            <hr class="flex-grow-1" />
-                        </div>
-                    </div>   
+                    </div>
+                    <!-- Alert de erro (invisível por padrão) -->
+                    <div id="alertContainer" class="alert alert-danger d-none" role="alert">
+                        <ul id="errorList" class="mb-0"></ul>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <button type="reset" class="btn btn-danger me-4">Limpar</button>
+                        <button type="submit" class="btn btn-success">Entrar</button>  
+                    </div>
+                </form>
+                <div class="text-center"><span>OU</span></div>
+                <div class="mt-1 mb-4 text-center">
+                    Não tem uma conta?
+                    <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#cadastroModal" data-bs-dismiss="modal">Cadastre-se</a>
                 </div>
+            <div class="d-flex align-items-center mt-3">
+            <hr class="flex-grow-1" />
+            <button type="button"
+            class="btn btn-light px-3 mx-2 d-flex align-items-center justify-content-center">
+            <img class="border-opacity-10" src="https://developers.google.com/identity/images/g-logo.png"
+            alt="Google" width="30px">
+            </button>
+            <hr class="flex-grow-1" />
+            </div>
+            </div>   
+        </div>
+    </div>
+</div>
+<!-- Modal for Cadastro -->
+<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100" id="cadastroModalLabel"><i class="bi bi-person-plus"></i> Crie sua conta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="cadastroForm" action="" method="POST" novalidate>
+                    <!-- Nome -->
+                    <div class="mb-3">
+                        <label for="nomeusuario" class="form-label"><i class="bi bi-person"></i> Nome:</label>
+                        <input type="text" id="nomeusuario" name="nome" class="form-control" placeholder="Digite seu nome" required>
+                    </div>
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label"><i class="bi bi-envelope"></i> Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                    </div>
+                    <!-- Celular (Opcional) -->
+                    <div class="mb-3">
+                        <label for="celular" class="form-label"><i class="bi bi-phone"></i> Celular:</label>
+                        <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite seu celular">
+                    </div>
+                    <!-- CPF -->
+                    <div class="mb-3">
+                        <label for="cpf" class="form-label"><i class="bi bi-card-text"></i> CPF:</label>
+                        <input type="text" id="cpf" name="cpf" class="form-control" placeholder="Digite seu CPF" required>
+                    </div>
+                    <!-- Senha -->
+                    <div class="mb-3">
+                        <label for="senha" class="form-label"><i class="bi bi-lock"></i> Senha:</label>
+                        <input type="password" id="senhaCadastro" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                    </div>
+                    <!-- Checkbox Mostrar Senha -->
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="showPassword">
+                        <label class="form-check-label" for="showPassword">Mostrar senha</label>
+                    </div>
+                    <!-- Botões -->
+                    <div class="mb-3 text-center">
+                        <button type="reset" class="btn btn-secondary me-2">Limpar</button>
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <!-- Modal for Cadastro -->
-        <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title w-100" id="cadastroModalLabel">Cadastre-se</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="cadastroForm" action="" method="POST" class="needs-validation" novalidate>
-                                <!-- Nome -->
-                                <div class="mb-3">
-                                    <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
-                                   
-                                </div>
-                                <!-- Sobrenome -->
-                                <div class="mb-3">
-                                    <input type="text" name="sobrenome" class="form-control" id="sobrenome" placeholder="Sobrenome" required>
-                                   
-                                </div>
-                                <!-- Celular e WhatsApp -->
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <input type="text" name="celular" class="form-control me-2" id="celular" placeholder="Celular" pattern="\\d{11}" required>
-                                   
-                                    <input type="text" name="whatsapp" class="form-control" id="whatsapp" placeholder="WhatsApp" pattern="\\d{11}">
-                                   
-                                </div>
-                                <!-- Endereço -->
-                                <div class="mb-3">
-                                    <input type="text" name="endereco" class="form-control" id="endereco" placeholder="Endereço" required>
-                                   
-                                </div>
-                                <!-- Estado e Cidade -->
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <select name="estado" class="form-select me-2" required>
-                                    <option value="" selected>Estado</option>
-                                    <option value="Acre">Acre</option>
-                                    <option value="Alagoas">Alagoas</option>
-                                    <option value="Amapá">Amapá</option>
-                                    <option value="Amazonas">Amazonas</option>
-                                    <option value="Bahia">Bahia</option>
-                                    <option value="Ceará">Ceará</option>
-                                    <option value="Distrito Federal">Distrito Federal</option>
-                                    <option value="Espírito Santo">Espírito Santo</option>
-                                    <option value="Goiás">Goiás</option>
-                                    <option value="Maranhão">Maranhão</option>
-                                    <option value="Mato Grosso">Mato Grosso</option>
-                                    <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-                                    <option value="Minas Gerais">Minas Gerais</option>
-                                    <option value="Pará">Pará</option>
-                                    <option value="Paraíba">Paraíba</option>
-                                    <option value="Paraná">Paraná</option>
-                                    <option value="Pernambuco">Pernambuco</option>
-                                    <option value="Piauí">Piauí</option>
-                                    <option value="Rio de Janeiro">Rio de Janeiro</option>
-                                    <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-                                    <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-                                    <option value="Rondônia">Rondônia</option>
-                                    <option value="Roraima">Roraima</option>
-                                    <option value="Santa Catarina">Santa Catarina</option>
-                                    <option value="São Paulo">São Paulo</option>
-                                    <option value="Sergipe">Sergipe</option>
-                                    <option value="Tocantins">Tocantins</option>
-                                    <option value="Estrangeiro">Estrangeiro</option>
-                                    </select>
-                                   
-                                    <input type="text" name="cidade" class="form-control" id="cidade" placeholder="Cidade" required>
-                                   
-                                </div>
-                                <!-- CPF e Data de Nascimento -->
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <input type="text" name="cpf" class="form-control me-2" id="cpf" placeholder="CPF" pattern="\\d{11}" required>
-                                   
-                                    <input type="date" name="data_nascimento" class="form-control" id="dataNascimento" placeholder="Data de Nascimento" required>
-                                   
-                                </div>
-                                <!-- Email -->
-                                <div class="mb-3">
-                                    <input type="email" name="username" class="form-control" id="email" placeholder="Email" required>
-                                   
-                                </div>
-                                <!-- Senha -->
-                                <div class="mb-3">
-                                    <div class="input-group">
-                                        <input type="password" name="senha" class="form-control" id="senha" placeholder="Senha" required>
-                                        <button type="button" class="btn  border border-secondary-subtle rounded-end" onclick="togglePassword('senha')">
-                                            <i class="bi bi-eye" id="senha-icon"></i>
-                                        </button>
-                                       
-                                    </div>
-                                </div>
-                                <!-- Confirmar Senha -->
-                                <div class="mb-3">
-                                    <div class="input-group">
-                                        <input type="password" name="confirmar_senha" class="form-control" id="confirmarSenha" placeholder="Confirme sua senha" required>
-                                        <button type="button" class="btn border border-secondary-subtle rounded-end" onclick="togglePassword('confirmarSenha')">
-                                            <i class="bi bi-eye" id="confirmarSenha-icon"></i>
-                                        </button>
-                                       
-                                    </div>
-                                </div>
-                                <!-- Alert de erro -->
-                                <div id="alert" class="alert alert-danger d-none" role="alert">
-                                    <ul id="errorList" class="mb-0"></ul>
-                                </div>
-                                <!-- Botões -->
-                                <div class="mb-3 d-flex justify-content-center">
-                                    <button type="reset" class="btn btn-danger me-4">Limpar</button>
-                                    <button type="submit" class="btn btn-success">Cadastrar</button>
-                                </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+</div>
+</section>
 <!-- fim do Menu-->
 
-    <!-- Hero Section -->
-    <section class="py-5 bg-light mt-5">
-        <div class="container text-center">
-            <h1>Nossas Mídias</h1>
-            <p class="lead">Descubra a história e a paixão por trás do Salão de Beleza.</p>
-        </div>
-    </section>
+<!-- Hero Section -->
+<section id="hero" class="py-5">
+    <div class="container text-center">
+        <h1>Nossas Mídias</h1>
+        <p>Descubra a história e a paixão por trás do Salão de Beleza.</p>
+    </div>
+</section>
 
-    <!-- Section: Fotos -->
-    <section id="fotos" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Fotos</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Foto 1">
-                        <div class="card-body">
-                            <p class="card-text">Descrição da foto 1.</p>
-                        </div>
+<!-- Section: Fotos -->
+<section id="fotos" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Fotos</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="assets/img/midia01.webp" class="card-img-top" alt="Foto 1">
+                    <div class="card-body">
+                        <p class="card-text">Descrição da foto 1.</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Foto 2">
-                        <div class="card-body">
-                            <p class="card-text">Descrição da foto 2.</p>
-                        </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="assets/img/midia02.jpg" class="card-img-top" alt="Foto 2">
+                    <div class="card-body">
+                        <p class="card-text">Descrição da foto 2.</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Foto 3">
-                        <div class="card-body">
-                            <p class="card-text">Descrição da foto 3.</p>
-                        </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="assets/img/midia03.jpg" class="card-img-top" alt="Foto 3">
+                    <div class="card-body">
+                        <p class="card-text">Descrição da foto 3.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Section: Vídeos -->
-    <section id="videos" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">Vídeos</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 1" allowfullscreen></iframe>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Descrição do vídeo 1.</p>
-                        </div>
+<!-- Section: Vídeos -->
+<section id="videos" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Vídeos</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 1" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Descrição do vídeo 1.</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 2" allowfullscreen></iframe>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Descrição do vídeo 2.</p>
-                        </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 2" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Descrição do vídeo 2.</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 3" allowfullscreen></iframe>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">Descrição do vídeo 3.</p>
-                        </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 3" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Descrição do vídeo 3.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="text-center text-lg-start bg-light text-muted pt-3">
-        <section class="">
-           <div class="container text-center text-md-start mt-5">
-               <div class="row mt-3">
-                   <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                       <h6 class="text-uppercase fw-bold mb-4">
-                           <i class="bi bi-gem me-3"></i>Salão de Beleza
-                       </h6>
-                       <p>
-                           Cuidamos de você com amor e dedicação. Venha nos visitar!
-                       </p>
-                           <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                           <p><i class="bi bi-house me-3"></i> Rua Exemplo, 123, Cidade</p>
-                           <p><i class="bi bi-envelope me-3"></i> contato@salaodebeleza.com</p>
-                           <p><i class="bi bi-phone me-3"></i> +55 12 3456-7890</p>
-                   </div>
-                   <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 pe-2">
-                       <h6 class="text-uppercase fw-bold mb-4">
-                           <i class="bi bi-link"></i> Links úteis
-                       </h6>
-                       <p><a href="#inicio" class="text-reset">Início</a></p>
-                       <p><a href="#sobre" class="text-reset">Sobre</a></p>
-                       <p><a href="#servicos" class="text-reset">Serviços</a></p>
-                       <p><a href="#faq" class="text-reset">FAQ</a></p>
-                   </div>
-                   <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 text-center">
-                       <div class="me-5 d-none d-lg-block">
-                           <span>Conecte-se conosco nas redes sociais:</span>
-                       </div>
-                       <div class="me-5 d-none d-lg-block fs-2">
-                           <a href="#" class="me-4 text-reset"><i class="bi bi-facebook"></i></a>
-                           <a href="#" class="me-4 text-reset"><i class="bi bi-instagram"></i></a>
-                           <a href="#" class="me-4 text-reset"><i class="bi bi-youtube"></i></a>
-                           <a href="#" class="me-4 text-reset"><i class="bi bi-whatsapp"></i></a>
-                       </div>
-               </div>
-           </div>
-       </section>
-       <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-           © 2024 Salão de Beleza. Todos os direitos reservados.
-       </div>
-   </footer>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Footer -->
+<div id="footer-container"></div>
+<!--Inseri o menu e o footer-->
+<script src="assets/js/includes.js"></script>
+<!-- Bootstrap js-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Fomulario js-->
+<script src="assets/js/forms.js"></script>
 </body>
 </html>
