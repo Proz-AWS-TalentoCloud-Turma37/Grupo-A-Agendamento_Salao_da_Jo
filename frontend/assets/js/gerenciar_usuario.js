@@ -59,21 +59,24 @@ function openUserModal(userId, nome, email, celular, cpf, tipo) {
     document.getElementById('modalUserCpf').textContent = cpf;
     document.getElementById('modalUserTipo').textContent = tipo;
     document.getElementById('editUserId').value = userId;
-    document.getElementById('editUserButton').setAttribute('onclick', `toggleEditForm('${email}', '${celular}', '${tipo}')`);
-    document.getElementById('deleteUserButton').setAttribute('onclick', `deleteUser(${userId})`);
+
+    document.getElementById('editUserButton').setAttribute('onclick', `toggleEditForm('${nome}', '${email}', '${celular}', '${tipo}')`);
+document.getElementById('deleteUserButton').setAttribute('onclick', `deleteUser('${userId}')`);
 
     const modal = new bootstrap.Modal(document.getElementById('userActionsModal'));
     modal.show();
 }
 
 // Função para expandir/recolher o formulário de edição
-function toggleEditForm(email, celular, tipo) {
+function toggleEditForm(nome, email, celular, tipo) {
     const editForm = document.getElementById('editUserForm');
     const saveButton = document.getElementById('saveUserChangesButton');
+    
+    document.getElementById('editName').value = nome;  // Adicionando campo nome
     document.getElementById('editEmail').value = email;
     document.getElementById('editCelular').value = celular;
     document.getElementById('editTipo').value = tipo;
-    
+
     editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
     saveButton.style.display = saveButton.style.display === 'none' ? 'block' : 'none';
 }
@@ -82,6 +85,7 @@ function toggleEditForm(email, celular, tipo) {
 async function saveUserChanges() {
     const userId = document.getElementById('editUserId').value;
     const updatedUser = {
+        nome: document.getElementById('editName').value,  // Incluímos o nome
         email: document.getElementById('editEmail').value,
         celular: document.getElementById('editCelular').value,
         senha: document.getElementById('editSenha').value || undefined,
@@ -122,7 +126,9 @@ async function deleteUser(userId) {
                 'Authorization': `Bearer ${getToken()}`
             }
         });
+
         if (!response.ok) throw new Error('Falha ao deletar usuário');
+
         showMessage('Usuário removido com sucesso!', 'success');
         refreshUserList();
     } catch (error) {

@@ -56,6 +56,10 @@
                         <button id="editUserButton" class="btn btn-primary" onclick="toggleEditForm()">Editar Informações</button>
                         <div id="editUserForm" style="display: none;">
                             <input type="hidden" id="editUserId">
+<div class="mb-3">
+    <label for="editName" class="form-label">Nome</label>
+    <input type="text" class="form-control" id="editName" required>
+</div>
                             <div class="mb-3">
                                 <label for="editEmail" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="editEmail" required>
@@ -88,7 +92,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/gerenciar_usuario.js"></script>
     <script>
