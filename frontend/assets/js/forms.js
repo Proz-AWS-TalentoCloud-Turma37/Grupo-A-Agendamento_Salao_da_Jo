@@ -199,11 +199,11 @@ class AuthManager {
 
                 // Redireciona para diferentes áreas com base no tipo de usuário
                 if (userType === "CLIENTE") {
-                    window.location.href = "dashboard_area_do_usuario.html";
+                    window.location.href = "/../../dashboard/usuario/dashboard_area_do_usuario.html";
                 } else if (userType === "PROFISSIONAL") {
-                    window.location.href = "dashboard_area_do_profissional.html";
+                    window.location.href = "../../dashboard/proficional/dashboard_area_do_profissional.html";
                 } else if (userType === "ADMINISTRADOR") {
-                    window.location.href = "admin.html";
+                    window.location.href = "../../dashboard/admin/admin.html";
                 } else {
                     alert("Tipo de usuário inválido. Entre em contato com o suporte.");
                 }
