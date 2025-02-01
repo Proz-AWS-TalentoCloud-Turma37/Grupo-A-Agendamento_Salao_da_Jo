@@ -1,5 +1,10 @@
 const apiUrl = 'http://localhost:3000/api/usuarios';
 
+// Função para obter o token JWT armazenado
+function getToken() {
+    return localStorage.getItem('token');
+}
+
 // Função para mostrar mensagens no contêiner
 function showMessage(message, type) {
     const messageContainer = document.getElementById('messageContainer');
@@ -73,7 +78,7 @@ function toggleEditForm(email, celular, tipo) {
     saveButton.style.display = saveButton.style.display === 'none' ? 'block' : 'none';
 }
 
-// Função para salvar alterações do usuário
+// Função para salvar alterações do usuário (Apenas Admin)
 async function saveUserChanges() {
     const userId = document.getElementById('editUserId').value;
     const updatedUser = {
@@ -84,12 +89,11 @@ async function saveUserChanges() {
     };
 
     try {
-        const token = localStorage.getItem('token');
         const response = await fetch(`${apiUrl}/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${getToken()}`
             },
             body: JSON.stringify(updatedUser)
         });
@@ -108,15 +112,14 @@ async function saveUserChanges() {
     }
 }
 
-// Função para excluir usuário
+// Função para excluir usuário (Apenas Admin)
 async function deleteUser(userId) {
     try {
-        const token = localStorage.getItem('token');
         const response = await fetch(`${apiUrl}/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${getToken()}`
             }
         });
         if (!response.ok) throw new Error('Falha ao deletar usuário');
