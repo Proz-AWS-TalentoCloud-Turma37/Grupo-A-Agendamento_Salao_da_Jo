@@ -9,11 +9,7 @@ body {
     font-style: normal;
   }
 
-  footer { 
-    color:#4a0857
-  }
-
-.font-title {
+  .font-title {
     font-family: "Playwrite IN", serif;
     font-optical-sizing: auto;
     font-weight: 300;
@@ -81,8 +77,16 @@ body {
     background-color: #614c6e !important; /* Nova cor de fundo */
     color: white !important;              /* Cor do texto */
 }
-
+.text-lilas {
+    color: #765c86 !important; /* Nova cor do texto */
+}
+.text-lilas:hover {
+    color: #4a0857!important; /* Nova cor do texto */
+}
 /* fundo rodape*/
+footer { 
+    color:#4a0857
+  }
 .bg-lilas {
     background-color: #C9BFE2!important;
    
