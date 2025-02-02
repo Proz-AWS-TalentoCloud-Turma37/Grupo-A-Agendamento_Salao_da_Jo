@@ -1,3 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playwrite+IN:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap');
+
+
+body {
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  footer { 
+    color:#4a0857
+  }
+
+.font-title {
+    font-family: "Playwrite IN", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+
 #comentarios {
     background: url('../img/comentarios.webp') no-repeat center center fixed;
     background-size: cover;
@@ -48,19 +70,23 @@
 }
 
 .custom-navbar {
-    background-color: #3E760B !important;
+    background-color: #614c6e !important;
 }
-.btn-verde {
+.btn-lilas {
     background-color: #fff !important; /* Nova cor de fundo */
-    border-color: #3E760B !important;     /* Nova cor da borda */
-    color: #3E760B  !important;              /* Cor do texto */
+    border-color: #614c6e !important;     /* Nova cor da borda */
+    color: #614c6e  !important;              /* Cor do texto */
 }
-.btn-verde:hover {
-    background-color: #3E760B !important; /* Nova cor de fundo */
-    border-color: #fff !important;     /* Nova cor da borda */
+.btn-lilas:hover {
+    background-color: #614c6e !important; /* Nova cor de fundo */
     color: white !important;              /* Cor do texto */
 }
 
+/* fundo rodape*/
+.bg-lilas {
+    background-color: #C9BFE2!important;
+   
+}
 /* Botão de Limpar (vermelho padrão do Bootstrap) */
 .btn-danger {
     background-color: #dc3545 !important; /* Vermelho padrão Bootstrap */
@@ -75,4 +101,9 @@
     color: white !important;
 }
 
-
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
