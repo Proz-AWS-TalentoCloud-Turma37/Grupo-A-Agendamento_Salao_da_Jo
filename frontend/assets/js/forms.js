@@ -201,7 +201,7 @@ class AuthManager {
                 if (userType === "CLIENTE") {
                     window.location.href = "/../../dashboard/usuario/dashboard_area_do_usuario.html";
                 } else if (userType === "PROFISSIONAL") {
-                    window.location.href = "../../dashboard/proficional/dashboard_area_do_profissional.html";
+                    window.location.href = "../../dashboard/profissional/dashboard_area_do_profissional.html";
                 } else if (userType === "ADMINISTRADOR") {
                     window.location.href = "../../dashboard/admin/admin.html";
                 } else {
