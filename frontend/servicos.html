@@ -12,121 +12,125 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         #hero {
-            background-image: url('assets/img/servico.jpg');
+            background-image: url('assets/img/servicos/servico.jpg');
             background-size: cover;
             background-position: center;
             color: #fff;
             text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);
         }
+        .close{
+            top: 10px; 
+            right: 10px; 
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
-    <!-- inicio do Menu-->
-    <section id="menu">
-        <div id="menu-container"></div>
-        <!-- Modal para Login -->
-        <div class="modal fade" id="agendamentoModal" tabindex="-1" aria-labelledby="agendamentoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title w-100" id="agendamentoModalLabel">Login</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="loginForm" action="" method="POST" novalidate>
-                            <div class="mb-3">
-                                <input type="text" name="username" class="form-control" id="username" placeholder="Email" required>
-                            </div>
-                            <div class="mb-3">          
-                                <input type="password" name="password" class="form-control" id="senhaLogin" placeholder="Senha" required>
-                            </div>
-                            <div class="mb-3">
-                                <!-- Checkbox Mostrar Senha -->
-                                <div class="form-check mb-3">
-                                    <input type="checkbox" class="form-check-input" id="showPassword">
-                                    <label class="form-check-label" for="showPassword">Mostrar senha</label>
-                                </div>
-                            </div>
-                            <!-- Alert de erro (invisível por padrão) -->
-                            <div id="alertContainer" class="alert alert-danger d-none" role="alert">
-                                <ul id="errorList" class="mb-0"></ul>
-                            </div>
-                            <div class="mb-3 d-flex justify-content-center">
-                                <button type="reset" class="btn btn-outline-danger me-4"><i class="bi bi-x-circle"></i> Limpar</button>
-                                <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-right"></i> Entrar</button>  
-                            </div>
-                        </form>
-                        <div class="text-center"><span>OU</span></div>
-                        <div class="mt-1 mb-4 text-center">
-                            Não tem uma conta?
-                            <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#cadastroModal" data-bs-dismiss="modal">Cadastre-se</a>
-                        </div>
-                    <div class="d-flex align-items-center mt-3">
-                    <hr class="flex-grow-1" />
-                    <button type="button"
-                    class="btn btn-light px-3 mx-2 d-flex align-items-center justify-content-center">
-                    <img class="border-opacity-10" src="https://developers.google.com/identity/images/g-logo.png"
-                    alt="Google" width="30px">
-                    </button>
-                    <hr class="flex-grow-1" />
-                    </div>
-                    </div>   
+<!-- inicio do Menu-->
+<section id="menu">
+    <div id="menu-container"></div>
+    <!-- Modal para Login -->
+    <div class="modal fade" id="agendamentoModal" tabindex="-1" aria-labelledby="agendamentoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="agendamentoModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-        <!-- Modal for Cadastro -->
-        <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title w-100" id="cadastroModalLabel"><i class="bi bi-person-plus"></i> Crie sua conta</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="cadastroForm" action="" method="POST" novalidate>
-                            <!-- Nome -->
-                            <div class="mb-3">
-                                <label for="nomeusuario" class="form-label"><i class="bi bi-person"></i> Nome:</label>
-                                <input type="text" id="nomeusuario" name="nome" class="form-control" placeholder="Digite seu nome" required>
-                            </div>
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label"><i class="bi bi-envelope"></i> Email:</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
-                            </div>
-                            <!-- Celular (Opcional) -->
-                            <div class="mb-3">
-                                <label for="celular" class="form-label"><i class="bi bi-phone"></i> Celular:</label>
-                                <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite seu celular">
-                            </div>
-                            <!-- CPF -->
-                            <div class="mb-3">
-                                <label for="cpf" class="form-label"><i class="bi bi-card-text"></i> CPF:</label>
-                                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="Digite seu CPF" required>
-                            </div>
-                            <!-- Senha -->
-                            <div class="mb-3">
-                                <label for="senha" class="form-label"><i class="bi bi-lock"></i> Senha:</label>
-                                <input type="password" id="senhaCadastro" name="senha" class="form-control" placeholder="Digite sua senha" required>
-                            </div>
+                <div class="modal-body">
+                    <form id="loginForm" action="" method="POST" novalidate>
+                        <div class="mb-3">
+                            <input type="text" name="username" class="form-control" id="username" placeholder="Email" required>
+                        </div>
+                        <div class="mb-3">          
+                            <input type="password" name="password" class="form-control" id="senhaLogin" placeholder="Senha" required>
+                        </div>
+                        <div class="mb-3">
                             <!-- Checkbox Mostrar Senha -->
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="showPassword">
                                 <label class="form-check-label" for="showPassword">Mostrar senha</label>
                             </div>
-                            <!-- Botões -->
-                            <div class="mb-3 text-center">
-                                <button type="reset" class="btn btn-outline-danger me-2"> <i class="bi bi-x-circle"></i> Limpar</button>
-                                <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-up"></i> Cadastrar</button>
-                            </div>
-                        </form>
+                        </div>
+                        <!-- Alert de erro (invisível por padrão) -->
+                        <div id="alertContainer" class="alert alert-danger d-none" role="alert">
+                            <ul id="errorList" class="mb-0"></ul>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center">
+                            <button type="reset" class="btn btn-outline-danger me-4"><i class="bi bi-x-circle"></i> Limpar</button>
+                            <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-right"></i> Entrar</button>  
+                        </div>
+                    </form>
+                    <div class="text-center"><span>OU</span></div>
+                    <div class="mt-1 mb-4 text-center">
+                        Não tem uma conta?
+                        <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#cadastroModal" data-bs-dismiss="modal">Cadastre-se</a>
                     </div>
+                <div class="d-flex align-items-center mt-3">
+                <hr class="flex-grow-1" />
+                <button type="button"
+                class="btn btn-light px-3 mx-2 d-flex align-items-center justify-content-center">
+                <img class="border-opacity-10" src="https://developers.google.com/identity/images/g-logo.png"
+                alt="Google" width="30px">
+                </button>
+                <hr class="flex-grow-1" />
+                </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Cadastro -->
+    <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="cadastroModalLabel"><i class="bi bi-person-plus"></i> Crie sua conta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="cadastroForm" action="" method="POST" novalidate>
+                        <!-- Nome -->
+                        <div class="mb-3">
+                            <label for="nomeusuario" class="form-label"><i class="bi bi-person"></i> Nome:</label>
+                            <input type="text" id="nomeusuario" name="nome" class="form-control" placeholder="Digite seu nome" required>
+                        </div>
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i class="bi bi-envelope"></i> Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                        </div>
+                        <!-- Celular (Opcional) -->
+                        <div class="mb-3">
+                            <label for="celular" class="form-label"><i class="bi bi-phone"></i> Celular:</label>
+                            <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite seu celular">
+                        </div>
+                        <!-- CPF -->
+                        <div class="mb-3">
+                            <label for="cpf" class="form-label"><i class="bi bi-card-text"></i> CPF:</label>
+                            <input type="text" id="cpf" name="cpf" class="form-control" placeholder="Digite seu CPF" required>
+                        </div>
+                        <!-- Senha -->
+                        <div class="mb-3">
+                            <label for="senha" class="form-label"><i class="bi bi-lock"></i> Senha:</label>
+                            <input type="password" id="senhaCadastro" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                        </div>
+                        <!-- Checkbox Mostrar Senha -->
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="showPassword">
+                            <label class="form-check-label" for="showPassword">Mostrar senha</label>
+                        </div>
+                        <!-- Botões -->
+                        <div class="mb-3 text-center">
+                            <button type="reset" class="btn btn-outline-danger me-2"> <i class="bi bi-x-circle"></i> Limpar</button>
+                            <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-up"></i> Cadastrar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- fim do Menu-->
-
+    </div>
+</section>
+<!-- fim do Menu-->
 
 <!-- Hero Section -->
 <section class="py-5" id="hero">
@@ -136,211 +140,210 @@
     </div>
 </section>
   
-    <!-- Serviços Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="assets/img/servico.jpg" class="card-img-top" alt="Corte de Cabelo">
-                        <div class="card-body">
-                            <h5 class="card-title">Corte de Cabelo</h5>
-                            <p class="card-text">Cortes modernos e personalizados para realçar sua identidade.</p>
-                            <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalCorteCabelo">Saiba mais</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="assets/img/servico01.jpg" class="card-img-top" alt="Coloração">
-                        <div class="card-body">
-                            <h5 class="card-title">Coloração</h5>
-                            <p class="card-text">Cores vibrantes e saudáveis para transformar seu visual.</p>
-                            <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalColoracao">Saiba mais</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="assets/img/servico02.webp" class="card-img-top" alt="Manicure e Pedicure">
-                        <div class="card-body">
-                            <h5 class="card-title">Manicure e Pedicure</h5>
-                            <p class="card-text">Cuidado completo para suas unhas, com esmaltações perfeitas.</p>
-                            <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalManicure">Saiba mais</button>
-                        </div>
+<!-- Serviços Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="mt-2 mb-3">
+                <h2><i class="bi bi-bookmark"></i> Cabelo</h2>
+                <hr>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="assets/img/servicos/servicoCabeloCorte.jpg" class="card-img-top" alt="Corte de Cabelo">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Corte de Cabelo</h5>
+                        <p class="card-text">Cortes modernos e personalizados para realçar sua identidade.</p>
+                        <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalCorteCabelo">Saiba mais</button>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="assets/img/servico03.webp" class="card-img-top" alt="Tratamento Capilar">
-                        <div class="card-body">
-                            <h5 class="card-title">Tratamento Capilar</h5>
-                            <p class="card-text">Hidratações e tratamentos para manter seus cabelos saudáveis.</p>
-                            <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalTratamentoCapilar">Saiba mais</button>
-                        </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="assets/img/servicos/servicoCabeloPintura.jpg" class="card-img-top" alt="Coloração">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Coloração</h5>
+                        <p class="card-text">Cores vibrantes e saudáveis para transformar seu visual.</p>
+                        <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalColoracao">Saiba mais</button>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Maquiagem">
-                        <div class="card-body">
-                            <h5 class="card-title">Maquiagem</h5>
-                            <p class="card-text">Makeup profissional para ocasiões especiais ou do dia a dia.</p>
-                            <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalMaquiagem">Saiba mais</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Depilação">
-                        <div class="card-body">
-                            <h5 class="card-title">Depilação</h5>
-                            <p class="card-text">Técnicas modernas e eficazes para uma pele lisa e macia.</p>
-                            <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalDepilacao">Saiba mais</button>
-                        </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="assets/img/servicos/servicoCabeloEscova.jpeg" class="card-img-top" alt="Tratamento Capilar">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Escova Modeladora</h5>
+                        <p class="card-text">Técnica de finalização capilar que  cria diferentes efeitos como volume, ondas, cachos ou um liso mais natural. </p>
+                        <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalTratamentoCapilar">Saiba mais</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Modals -->
-    <div class="modal fade" id="modalCorteCabelo" tabindex="-1" aria-labelledby="modalCorteCabeloLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCorteCabeloLabel">Corte de Cabelo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="row">
+            <div class="mt-4 mb-3">
+                <h2><i class="bi bi-bookmark"></i> Manicure, Maquiagem e Depilação</h2>
+                <hr>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="assets/img/servicos/servicoManicure.webp" class="card-img-top" alt="Manicure e Pedicure">
+                    <div class="card-body  text-center">
+                        <h5 class="card-title">Manicure e Pedicure</h5>
+                        <p class="card-text">Cuidado completo para suas unhas, com esmaltações perfeitas.</p>
+                        <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalManicure">Saiba mais</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>Nosso corte de cabelo é realizado por profissionais altamente qualificados, utilizando técnicas modernas e equipamentos de última geração. Seja qual for o seu estilo, garantimos um corte que combine perfeitamente com sua personalidade e preferências.</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="assets/img/servicos/servicomakes.jpg" class="card-img-top" alt="Maquiagem">
+                    <div class="card-body  text-center">
+                        <h5 class="card-title">Maquiagem</h5>
+                        <p class="card-text">Makeup profissional para ocasiões especiais ou do dia a dia.</p>
+                        <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalMaquiagem">Saiba mais</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="assets/img/servicos/servicoDepilação.webp" class="card-img-top" alt="Depilação">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Depilação</h5>
+                        <p class="card-text">Técnicas modernas e eficazes para uma pele lisa e macia.</p>
+                        <button class="btn btn-lilas" data-bs-toggle="modal" data-bs-target="#modalDepilacao">Saiba mais</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Modals -->
+    <div class="modal fade rounded-4" id="modalCorteCabelo" tabindex="-1" aria-labelledby="modalCorteCabeloLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="rounded-2 position-relative">
+                    <button type="button" class="btn-close position-absolute close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                    <img src="assets/img/servicos/servicoCabeloCorte.jpg" class="img-fluid rounded-top-2">
+                    <p class="mt-1 p-3">Nosso corte de cabelo é realizado por profissionais altamente qualificados, utilizando técnicas modernas e equipamentos de última geração. Seja qual for o seu estilo, garantimos um corte que combine perfeitamente com sua personalidade e preferências.</p>
                     <ul>
                         <li>Cortes masculinos e femininos</li>
                         <li>Cortes infantis</li>
                         <li>Modelagem e finalização incluídas</li>
                     </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <div class="mb-4 text-center">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+  
 
     <div class="modal fade" id="modalColoracao" tabindex="-1" aria-labelledby="modalColoracaoLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalColoracaoLabel">Coloração</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Nossos serviços de coloração oferecem tinturas de alta qualidade que mantêm seus cabelos saudáveis e brilhantes. Escolha entre uma ampla gama de cores e estilos.</p>
+                <div class="rounded-2 position-relative">
+                    <button type="button" class="btn-close position-absolute close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                    <img src="assets/img/servicos/servicoCabeloPintura.jpg" class="img-fluid rounded-top-2">
+                    <p class="mt-1 p-3">
+                        Nossos serviços de coloração oferecem tinturas de alta qualidade que mantêm seus cabelos saudáveis e brilhantes. Escolha entre uma ampla gama de cores e estilos.
+                    </p>
                     <ul>
                         <li>Coloração permanente e semi-permanente</li>
                         <li>Mechas, luzes e balayage</li>
                         <li>Correção de cor</li>
                     </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalManicure" tabindex="-1" aria-labelledby="modalManicureLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalManicureLabel">Manicure e Pedicure</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Oferecemos serviços de manicure e pedicure com os melhores produtos e técnicas. Deixe suas unhas lindas e bem cuidadas.</p>
-                    <ul>
-                        <li>Esmaltações tradicionais e em gel</li>
-                        <li>Hidratação e esfoliação</li>
-                        <li>Design de unhas personalizadas</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <div class="mb-4 text-center">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal fade" id="modalTratamentoCapilar" tabindex="-1" aria-labelledby="modalTratamentoCapilarLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTratamentoCapilarLabel">Tratamento Capilar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Tratamentos capilares personalizados para hidratar, fortalecer e revitalizar seus cabelos.</p>
+                <div class="rounded-2 position-relative">
+                    <button type="button" class="btn-close position-absolute close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                    <img src="assets/img/servicos/servicoCabeloEscova.jpeg" class="img-fluid rounded-top-2">
+                    <p class="mt-1 p-3">Tratamentos capilares personalizados para hidratar, fortalecer e revitalizar seus cabelos.</p>
                     <ul>
                         <li>Hidratação profunda</li>
                         <li>Reconstrução capilar</li>
                         <li>Tratamentos antiqueda</li>
                     </ul>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <div class="mb-4 text-center">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="modalMaquiagem" tabindex="-1" aria-labelledby="modalMaquiagemLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalMaquiagemLabel">Maquiagem</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="modalManicure" tabindex="-1" aria-labelledby="modalManicureLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="rounded-2 position-relative">
+                        <button type="button" class="btn-close position-absolute close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                        <img src="assets/img/servicos/servicoManicure.webp" class="img-fluid rounded-top-2">
+                        <p class="mt-1 p-3">Oferecemos serviços de manicure e pedicure com os melhores produtos e técnicas. Deixe suas unhas lindas e bem cuidadas.</p>
+                        <ul>
+                            <li>Esmaltações tradicionais e em gel</li>
+                            <li>Hidratação e esfoliação</li>
+                            <li>Design de unhas personalizadas</li>
+                        </ul>
+                        <div class="mb-4 text-center">
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>Realce sua beleza com maquiagens feitas por profissionais para qualquer ocasião.</p>
+            </div>
+    </div>
+
+    <div class="modal fade" id="modalMaquiagem" tabindex="-1" aria-labelledby="modalMaquiagemLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="rounded-2 position-relative">
+                    <button type="button" class="btn-close position-absolute close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                    <img src="assets/img/servicos/servicomakes.jpg" class="img-fluid rounded-top-2">
+                    <p class="mt-1 p-3">Realce sua beleza com maquiagens feitas por profissionais para qualquer ocasião.</p>
                     <ul>
                         <li>Maquiagem para festas e eventos</li>
                         <li>Maquiagem social</li>
                         <li>Contorno e iluminação profissionais</li>
                     </ul>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <div class="mb-4 text-center">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal fade" id="modalDepilacao" tabindex="-1" aria-labelledby="modalDepilacaoLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDepilacaoLabel">Depilação</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Depilações rápidas e eficazes com técnicas avançadas para uma pele macia e lisa.</p>
+                <div class="rounded-2 position-relative">
+                    <button type="button" class="btn-close position-absolute close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                    <img src="assets/img/servicos/servicoDepilação.webp" class="img-fluid rounded-top-2">
+                    <p class="mt-1 p-3">Depilações rápidas e eficazes com técnicas avançadas para uma pele macia e lisa.</p>
                     <ul>
                         <li>Depilação com cera quente ou fria</li>
                         <li>Depilação a laser</li>
                         <li>Hidratação pós-depilação</li>
                     </ul>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <div class="mb-4 text-center">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
-    <a href="https://wa.me/5531975171935" class="whatsapp-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="60" height="60" alt="WhatsApp">
-    </a>
+    </div>
+</section>
+
+<a href="https://wa.me/5531975171935" class="whatsapp-float" target="_blank" rel="noopener">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="60" height="60" alt="WhatsApp">
+</a>
 
 <!-- Footer -->
 <div id="footer-container"></div>
