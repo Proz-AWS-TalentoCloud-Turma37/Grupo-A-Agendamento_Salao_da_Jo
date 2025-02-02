@@ -7,8 +7,8 @@ logContainer.id = "logOutput";
 document.body.insertBefore(logContainer, document.body.firstChild);
 
 function logMessage(message) {
-    console.log(message); // Log no console
-    logContainer.innerHTML += message + "\n"; // Exibir logs na página
+    console.log(message);
+    logContainer.innerHTML += message + "\n";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
