@@ -21,111 +21,111 @@
 </style>
 </head>
 <body>
-    <!-- inicio do Menu-->
-    <section id="menu">
-        <div id="menu-container"></div>
-        <!-- Modal para Login -->
-        <div class="modal fade" id="agendamentoModal" tabindex="-1" aria-labelledby="agendamentoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title w-100" id="agendamentoModalLabel">Login</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="loginForm" action="" method="POST" novalidate>
-                            <div class="mb-3">
-                                <input type="text" name="username" class="form-control" id="username" placeholder="Email" required>
-                            </div>
-                            <div class="mb-3">          
-                                <input type="password" name="password" class="form-control" id="senhaLogin" placeholder="Senha" required>
-                            </div>
-                            <div class="mb-3">
-                                <!-- Checkbox Mostrar Senha -->
-                                <div class="form-check mb-3">
-                                    <input type="checkbox" class="form-check-input" id="showPassword">
-                                    <label class="form-check-label" for="showPassword">Mostrar senha</label>
-                                </div>
-                            </div>
-                            <!-- Alert de erro (invisível por padrão) -->
-                            <div id="alertContainer" class="alert alert-danger d-none" role="alert">
-                                <ul id="errorList" class="mb-0"></ul>
-                            </div>
-                            <div class="mb-3 d-flex justify-content-center">
-                                <button type="reset" class="btn btn-outline-danger me-4"><i class="bi bi-x-circle"></i> Limpar</button>
-                                <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-right"></i> Entrar</button>  
-                            </div>
-                        </form>
-                        <div class="text-center"><span>OU</span></div>
-                        <div class="mt-1 mb-4 text-center">
-                            Não tem uma conta?
-                            <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#cadastroModal" data-bs-dismiss="modal">Cadastre-se</a>
-                        </div>
-                    <div class="d-flex align-items-center mt-3">
-                    <hr class="flex-grow-1" />
-                    <button type="button"
-                    class="btn btn-light px-3 mx-2 d-flex align-items-center justify-content-center">
-                    <img class="border-opacity-10" src="https://developers.google.com/identity/images/g-logo.png"
-                    alt="Google" width="30px">
-                    </button>
-                    <hr class="flex-grow-1" />
-                    </div>
-                    </div>   
+<!-- inicio do Menu-->
+<section id="menu">
+    <div id="menu-container"></div>
+    <!-- Modal para Login -->
+    <div class="modal fade" id="agendamentoModal" tabindex="-1" aria-labelledby="agendamentoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="agendamentoModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-        <!-- Modal for Cadastro -->
-        <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title w-100" id="cadastroModalLabel"><i class="bi bi-person-plus"></i> Crie sua conta</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="cadastroForm" action="" method="POST" novalidate>
-                            <!-- Nome -->
-                            <div class="mb-3">
-                                <label for="nomeusuario" class="form-label"><i class="bi bi-person"></i> Nome:</label>
-                                <input type="text" id="nomeusuario" name="nome" class="form-control" placeholder="Digite seu nome" required>
-                            </div>
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label"><i class="bi bi-envelope"></i> Email:</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
-                            </div>
-                            <!-- Celular (Opcional) -->
-                            <div class="mb-3">
-                                <label for="celular" class="form-label"><i class="bi bi-phone"></i> Celular:</label>
-                                <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite seu celular">
-                            </div>
-                            <!-- CPF -->
-                            <div class="mb-3">
-                                <label for="cpf" class="form-label"><i class="bi bi-card-text"></i> CPF:</label>
-                                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="Digite seu CPF" required>
-                            </div>
-                            <!-- Senha -->
-                            <div class="mb-3">
-                                <label for="senha" class="form-label"><i class="bi bi-lock"></i> Senha:</label>
-                                <input type="password" id="senhaCadastro" name="senha" class="form-control" placeholder="Digite sua senha" required>
-                            </div>
+                <div class="modal-body">
+                    <form id="loginForm" action="" method="POST" novalidate>
+                        <div class="mb-3">
+                            <input type="text" name="username" class="form-control" id="username" placeholder="Email" required>
+                        </div>
+                        <div class="mb-3">          
+                            <input type="password" name="password" class="form-control" id="senhaLogin" placeholder="Senha" required>
+                        </div>
+                        <div class="mb-3">
                             <!-- Checkbox Mostrar Senha -->
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="showPassword">
                                 <label class="form-check-label" for="showPassword">Mostrar senha</label>
                             </div>
-                            <!-- Botões -->
-                            <div class="mb-3 text-center">
-                                <button type="reset" class="btn btn-outline-danger me-2"> <i class="bi bi-x-circle"></i> Limpar</button>
-                                <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-up"></i> Cadastrar</button>
-                            </div>
-                        </form>
+                        </div>
+                        <!-- Alert de erro (invisível por padrão) -->
+                        <div id="alertContainer" class="alert alert-danger d-none" role="alert">
+                            <ul id="errorList" class="mb-0"></ul>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center">
+                            <button type="reset" class="btn btn-outline-danger me-4"><i class="bi bi-x-circle"></i> Limpar</button>
+                            <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-right"></i> Entrar</button>  
+                        </div>
+                    </form>
+                    <div class="text-center"><span>OU</span></div>
+                    <div class="mt-1 mb-4 text-center">
+                        Não tem uma conta?
+                        <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#cadastroModal" data-bs-dismiss="modal">Cadastre-se</a>
                     </div>
+                <div class="d-flex align-items-center mt-3">
+                <hr class="flex-grow-1" />
+                <button type="button"
+                class="btn btn-light px-3 mx-2 d-flex align-items-center justify-content-center">
+                <img class="border-opacity-10" src="https://developers.google.com/identity/images/g-logo.png"
+                alt="Google" width="30px">
+                </button>
+                <hr class="flex-grow-1" />
+                </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Cadastro -->
+    <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="cadastroModalLabel"><i class="bi bi-person-plus"></i> Crie sua conta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="cadastroForm" action="" method="POST" novalidate>
+                        <!-- Nome -->
+                        <div class="mb-3">
+                            <label for="nomeusuario" class="form-label"><i class="bi bi-person"></i> Nome:</label>
+                            <input type="text" id="nomeusuario" name="nome" class="form-control" placeholder="Digite seu nome" required>
+                        </div>
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i class="bi bi-envelope"></i> Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                        </div>
+                        <!-- Celular (Opcional) -->
+                        <div class="mb-3">
+                            <label for="celular" class="form-label"><i class="bi bi-phone"></i> Celular:</label>
+                            <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite seu celular">
+                        </div>
+                        <!-- CPF -->
+                        <div class="mb-3">
+                            <label for="cpf" class="form-label"><i class="bi bi-card-text"></i> CPF:</label>
+                            <input type="text" id="cpf" name="cpf" class="form-control" placeholder="Digite seu CPF" required>
+                        </div>
+                        <!-- Senha -->
+                        <div class="mb-3">
+                            <label for="senha" class="form-label"><i class="bi bi-lock"></i> Senha:</label>
+                            <input type="password" id="senhaCadastro" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                        </div>
+                        <!-- Checkbox Mostrar Senha -->
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="showPassword">
+                            <label class="form-check-label" for="showPassword">Mostrar senha</label>
+                        </div>
+                        <!-- Botões -->
+                        <div class="mb-3 text-center">
+                            <button type="reset" class="btn btn-outline-danger me-2"> <i class="bi bi-x-circle"></i> Limpar</button>
+                            <button type="submit" class="btn btn-outline-success"><i class="bi bi-box-arrow-up"></i> Cadastrar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- fim do Menu-->
+    </div>
+</section>
+<!-- fim do Menu-->
 
 <!-- Hero Section -->
 <section id="hero" class="py-5">
@@ -142,25 +142,25 @@
         <div class="row">
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="assets/img/midia01.webp" class="card-img-top" alt="Foto 1">
+                    <img src="assets/img/midia/midia01.webp" class="card-img-top" alt="Foto 1">
                     <div class="card-body">
-                        <p class="card-text">Descrição da foto 1.</p>
+                        <p class="card-text">Um bom corte e tratamento realçam sua personalidade e autoestima.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="assets/img/midia02.jpg" class="card-img-top" alt="Foto 2">
+                    <img src="assets/img/midia/midia02.jpg" class="card-img-top" alt="Foto 2">
                     <div class="card-body">
-                        <p class="card-text">Descrição da foto 2.</p>
+                        <p class="card-text"> O lugar perfeito para renovar seu visual e se sentir incrível, agende seu horário.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="assets/img/midia03.jpg" class="card-img-top" alt="Foto 3">
+                    <img src="assets/img/midia/midia03.jpg" class="card-img-top" alt="Foto 3">
                     <div class="card-body">
-                        <p class="card-text">Descrição da foto 3.</p>
+                        <p class="card-text">Mãos bem cuidadas são um detalhe que faz toda a diferença.</p>
                     </div>
                 </div>
             </div>
@@ -176,30 +176,30 @@
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 1" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/wr_Z2ouyDiU" title="Vídeo 1" allowfullscreen></iframe>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Descrição do vídeo 1.</p>
+                        <p class="card-text">🏆TOP 10 MELHORES PRODUTOS PARA CABELOS DE 2024 [Gringos]</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 2" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/9IG9D1jf9kg" title="Vídeo 2" allowfullscreen></iframe>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Descrição do vídeo 2.</p>
+                        <p class="card-text">Produtos testados: APROVADOS e DESAPROVADOS de 2024 🔥</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo 3" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/P0pvphMAeUY" title="Vídeo 3" allowfullscreen></iframe>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Descrição do vídeo 3.</p>
+                        <p class="card-text">COMO FAZER UMA MAKE PROFISSIONAL EM CASA | Fernanda Petrizi</p>
                     </div>
                 </div>
             </div>
