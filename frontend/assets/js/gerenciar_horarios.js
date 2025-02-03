@@ -5,6 +5,20 @@ function getToken() {
     return localStorage.getItem('token');
 }
 
+// Função para decodificar o token JWT e obter o ID do usuário logado
+function getUserFromToken() {
+    const token = getToken();
+    if (!token) return null;
+
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decodifica o payload do token
+        return payload; // Retorna todas as informações do usuário autenticado
+    } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+        return null;
+    }
+}
+
 // Função para exibir mensagens
 function showMessage(message, type) {
     const messageContainer = document.getElementById('messageContainer');
@@ -107,13 +121,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('createHorarioForm')) {
         document.getElementById('createHorarioForm').addEventListener('submit', event => {
             event.preventDefault();
+            const user = getUserFromToken(); // Obtém o usuário autenticado
+            if (!user) {
+                showMessage('Erro: usuário não autenticado.', 'danger');
+                return;
+            }
+
             const horarioData = {
                 data: document.getElementById('createData').value,
                 horaInicio: document.getElementById('createHoraInicio').value,
                 horaFim: document.getElementById('createHoraFim').value,
                 duracaoServico: document.getElementById('createDuracao').value,
-                profissionalId: document.getElementById('createProfissionalId').value,
+                profissionalId: user.id // Obtém o ID do profissional do token
             };
+
             createHorario(horarioData);
         });
     }
