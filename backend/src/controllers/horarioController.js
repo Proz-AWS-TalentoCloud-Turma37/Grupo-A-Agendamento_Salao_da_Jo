@@ -1,36 +1,92 @@
 import { PrismaClient } from "@prisma/client";
 import { body, param, validationResult } from "express-validator";
+import dayjs from "dayjs";
+import jwt from "jsonwebtoken";
+import env from "../environment.js"; // Arquivo contendo JWT_SECRET
 
 const prisma = new PrismaClient();
 
 class HorarioController {
-    // Criar um novo horário
+    // Criar horários automaticamente com base no intervalo e duração
     async criar(req, res) {
-        // Validando dados com express-validator
-        await body("dataHora").isISO8601().withMessage("Data e hora inválidas").toDate().run(req);
+        // Verificar se o usuário tem permissão para criar horários
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) return res.status(403).send("Acesso negado");
+
+        try {
+            const decoded = jwt.verify(token, env.JWT_SECRET);
+            if (decoded.tipo !== "PROFISSIONAL" && decoded.tipo !== "ADMINISTRADOR") {
+                return res.status(403).send("Apenas profissionais ou administradores podem cadastrar horários");
+            }
+        } catch (error) {
+            return res.status(403).send("Token inválido");
+        }
+
+        // Validando os dados recebidos
+        await body("data").isISO8601().withMessage("Data inválida").run(req);
+        await body("horaInicio").matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).withMessage("Hora de início inválida").run(req);
+        await body("horaFim").matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).withMessage("Hora de término inválida").run(req);
         await body("profissionalId").isInt().withMessage("ID do profissional deve ser um número inteiro").run(req);
+        await body("duracaoServico").isInt({ min: 1 }).withMessage("Duração do serviço deve ser maior que zero").run(req);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { dataHora, profissionalId } = req.body;
+        const { data, horaInicio, horaFim, profissionalId, duracaoServico } = req.body;
 
         try {
-            // Criar o horário
-            const horario = await prisma.horario.create({
-                data: {
-                    dataHora,
-                    disponivel: true,
+            // Verificar se o profissional existe
+            const profissional = await prisma.usuario.findUnique({
+                where: { id: profissionalId, tipo: "PROFISSIONAL" }
+            });
+            if (!profissional) {
+                return res.status(400).send("Profissional não encontrado ou não tem permissão");
+            }
+
+            // Converter para objetos de data com dayjs
+            const inicio = dayjs(`${data}T${horaInicio}:00`);
+            const fim = dayjs(`${data}T${horaFim}:00`);
+
+            if (!inicio.isBefore(fim)) {
+                return res.status(400).send("Hora de início deve ser antes da hora de término");
+            }
+
+            // Verificar se já existem horários cadastrados nesse intervalo
+            const existeHorario = await prisma.horario.findFirst({
+                where: {
                     profissionalId: parseInt(profissionalId),
-                },
+                    dataHora: {
+                        gte: inicio.toDate(),
+                        lte: fim.toDate(),
+                    }
+                }
             });
 
-            return res.status(201).json(horario);
+            if (existeHorario) {
+                return res.status(400).send("Já existem horários cadastrados para esse profissional nesse período");
+            }
+
+            const horarios = [];
+            let atual = inicio;
+
+            // Gerar os horários dentro do intervalo
+            while (atual.isBefore(fim) || atual.isSame(fim)) {
+                horarios.push({
+                    dataHora: atual.toDate(),
+                    disponivel: true,
+                    profissionalId: parseInt(profissionalId),
+                });
+                atual = atual.add(duracaoServico, 'minute');
+            }
+
+            // Criar os horários no banco de dados
+            await prisma.horario.createMany({ data: horarios });
+            return res.status(201).json({ message: "Horários criados com sucesso", horarios });
         } catch (error) {
-            console.error(`Erro ao criar horário: ${error.message}`);
-            return res.status(500).send("Erro ao criar o horário");
+            console.error(`Erro ao criar horários: ${error.message}`);
+            return res.status(500).send("Erro ao criar os horários");
         }
     }
 
@@ -51,7 +107,6 @@ class HorarioController {
 
     // Buscar horário por ID
     async buscarPorId(req, res) {
-        // Validação de ID com express-validator
         await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
 
         const errors = validationResult(req);
@@ -80,7 +135,6 @@ class HorarioController {
 
     // Atualizar um horário
     async atualizar(req, res) {
-        // Validação de dados com express-validator
         await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
         await body("disponivel").isBoolean().withMessage("Disponível deve ser um valor booleano").run(req);
 
@@ -107,7 +161,6 @@ class HorarioController {
 
     // Deletar um horário
     async deletar(req, res) {
-        // Validação de ID com express-validator
         await param("id").isInt().withMessage("ID deve ser um número inteiro").run(req);
 
         const errors = validationResult(req);
